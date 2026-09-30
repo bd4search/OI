@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OI v9.0 – Pure Biophysical Spiking Brain</title>
+<title>OI v10.0 – Ultimate Biophysical Spiking Brain</title>
 <style>
   :root {
     --bg: #050608;
@@ -107,8 +107,8 @@
 <body>
 
 <header>
-  <h1>OI · Organic Intelligence v9.0 (Spiking Neural Biophysics)</h1>
-  <div class="sub">128-D Population Coding • Continuous LIF Dynamic Clock • True STDP Plasticity • E-I Cortical Balance</div>
+  <h1>OI · Organic Intelligence v10.0 (Spiking Neural Biophysics)</h1>
+  <div class="sub">128-D Population Coding • Continuous LIF Clock • Causal STDP Coupling • Isolated Sandbox</div>
 </header>
 
 <div class="grid">
@@ -121,31 +121,31 @@
   <div class="card">
     <div class="ct c-eye">👁 হিপোক্যাম্পাল অ্যাট্রাক্টর (CA3)</div>
     এনার্জি বেসিন: <span id="basinStatus">স্থির</span><br>
-    প্যাটার্ন কমপ্লিশন: <span id="resonanceScore">0.00</span>
+    প্যাটার্ন রেজোন্যান্স: <span id="resonanceScore">0.00</span>
     <div class="meter"><div id="eyeM" class="fill" style="background: var(--purple);"></div></div>
   </div>
   <div class="card">
     <div class="ct c-brain">🧠 কর্টেক্স নেটওয়ার্ক (Layers 2-6)</div>
     নিউরন পপুলেশন: 128 • সিন্যাপস: <span id="synCount">0</span><br>
-    গড় সিন্যাপটিক ওয়েট: <span id="avgSynWeight">0.00</span>
+    এপিসোডিক মেমোরি: <span id="episodes">0</span>
     <div class="meter"><div id="brainM" class="fill" style="background: var(--blue);"></div></div>
   </div>
   <div class="card">
-    <div class="ct c-voice">🗣 ব্রোকা মোটর ও গ্যাংলিয়া</div>
+    <div class="ct c-voice">🗣 ব্রোকা মোটর ও স্ট্রিয়েটাম</div>
     স্ট্রিয়েটাল সিলেকশন: <span id="actionGate">ইনহিবিটেড</span><br>
     মোটর আউটপুট: <span id="voiceVal">বিশ্রামে</span>
     <div class="meter"><div id="voiceM" class="fill" style="background: var(--green);"></div></div>
   </div>
   <div class="card" style="grid-column: 1 / -1;">
     <div class="ct c-inh">⚗️ নিউরোকেমিক্যাল ও মেটাবলিক হোমিওস্ট্যাসিস</div>
-    <div id="chemHUD">DA 0.35 • NA 0.20 • ACh 0.50 • GABA/Glu রেশিও: 0.25 • গ্লুকোজ: 100% • বর্জ্য: 0%</div>
+    <div id="chemHUD">DA 0.35 • NA 0.20 • ACh 0.50 • GABA/Glu: 0.25 • গ্লুকোজ: 100% • বর্জ্য: 0%</div>
   </div>
 </div>
 
 <div class="controls">
-  <button id="sleepBtn">😴 স্লো-ওয়েভ স্লিপ (STDP Homeostatic Pruning)</button>
+  <button id="sleepBtn">😴 স্লো-ওয়েভ স্লিপ (Homeostatic Pruning)</button>
   <button id="rewardBtn">👍 ডোপামিন LTP (Phasic Burst)</button>
-  <button id="punishBtn">👎 সিন্যাপটিক LTD (Anti-Hebbian Shock)</button>
+  <button id="punishBtn">👎 সিন্যাপটিক LTD (Causal Dissociation)</button>
   <button id="resetBtn">🔄 সেলুলার জিরো স্টেট</button>
 </div>
 
@@ -163,19 +163,18 @@
 </div>
 
 <script>
-// --- BIOPHYSICAL SPIKING NEURAL POPULATION ENGINE ---
-const POPULATION_SIZE = 128; // Dimensional space of the cortical column
-const DT = 1.0;              // 1ms continuous integration step
+const POPULATION_SIZE = 128;
+const DT = 1.0;
 
 class LIFNeuron {
   constructor(id, isExcitatory = true) {
     this.id = id;
-    this.isExcitatory = isExcitatory; // Dale's Principle: Glutamatergic vs GABAergic
-    this.Vm = -70.0;                  // Resting potential (-70 mV)
+    this.isExcitatory = isExcitatory;
+    this.Vm = -70.0;
     this.Vrest = -70.0;
-    this.Vthresh = -50.0;             // Firing threshold (-50 mV)
-    this.Vreset = -75.0;              // Hyperpolarization reset
-    this.tau = 20.0;                  // Membrane time constant (20 ms)
+    this.Vthresh = -50.0;
+    this.Vreset = -75.0;
+    this.tau = 20.0;
     this.refractoryTimer = 0;
     this.lastSpikeTime = -9999;
   }
@@ -187,38 +186,31 @@ class LIFNeuron {
       return false;
     }
 
-    // Leaky integration: dV/dt = -(Vm - Vrest)/tau + I/C
     const leak = -(this.Vm - this.Vrest) / this.tau;
     this.Vm += (leak + current) * DT;
 
     if (this.Vm >= this.Vthresh) {
       this.Vm = this.Vreset;
-      this.refractoryTimer = 2.0; // 2ms refractory
+      this.refractoryTimer = 2.0;
       this.lastSpikeTime = currentTime;
-      return true; // Action potential spike fired!
+      return true;
     }
     return false;
   }
 }
 
-class SpikingOrganicBrain {
+class SpikingOrganicBrainV10 {
   constructor() {
-    this.currentTime = 0; // Global biophysical clock in ms
+    this.currentTime = 0;
     this.neurons = [];
     
-    // 80% Excitatory, 20% Inhibitory (True Dale's balance)
     for (let i = 0; i < POPULATION_SIZE; i++) {
       this.neurons.push(new LIFNeuron(i, i < Math.floor(POPULATION_SIZE * 0.8)));
     }
 
-    // Synaptic Weight Matrix [Pre -> Post] (Floats)
     this.weights = new Float32Array(POPULATION_SIZE * POPULATION_SIZE);
-    
-    // Semantic Assembly Chunks (Phase-locked vector patterns)
-    this.populationVectorMap = new Map();
-    this.ca3Associations = []; // Array of { stimulusPattern, responseText, strength }
+    this.ca3Associations = [];
 
-    // Chemical State
     this.DA = 0.35;
     this.NA = 0.20;
     this.ACh = 0.50;
@@ -227,16 +219,16 @@ class SpikingOrganicBrain {
     
     this.lastInputPattern = null;
     this.lastResponseText = "";
+    this.recentTriggerPattern = null;
     this.lastSpikeCount = 0;
+    this.efferenceCopy = null;
   }
 
-  // Pure deterministic population hash (No random strings, stable biological sensory receptive field)
   encodeToPopulation(text) {
     const vector = new Float32Array(POPULATION_SIZE);
     const clean = text.toLowerCase().replace(/[^\w\s\u0980-\u09FF]/g, " ").trim();
     if (!clean) return vector;
 
-    // Distribute acoustic-semantic features across receptive fields
     for (let i = 0; i < clean.length; i++) {
       const code = clean.charCodeAt(i);
       const index1 = (code * 7 + i * 13) % POPULATION_SIZE;
@@ -247,8 +239,8 @@ class SpikingOrganicBrain {
     return vector;
   }
 
-  // Vector Cosine Overlap (Attractor Resonance)
   calculateOverlap(v1, v2) {
+    if (!v1 || !v2) return 0;
     let dot = 0, n1 = 0, n2 = 0;
     for (let i = 0; i < POPULATION_SIZE; i++) {
       dot += v1[i] * v2[i];
@@ -259,17 +251,21 @@ class SpikingOrganicBrain {
     return dot / (Math.sqrt(n1) * Math.sqrt(n2));
   }
 
-  // Stimulate auditory cortical column with continuous integration
   stimulate(rawInput) {
     const text = rawInput.trim();
     if (!text) return null;
+
+    if (this.efferenceCopy && this.efferenceCopy.toLowerCase() === text.toLowerCase()) {
+      this.efferenceCopy = null;
+      return { resonance: "0.00", spikes: 0, actionSelected: false, utterance: "...", isEfference: true };
+    }
+    this.efferenceCopy = null;
 
     this.glucose = Math.max(0.05, this.glucose - 0.02);
     this.waste = Math.min(1.0, this.waste + 0.025);
 
     const inputVector = this.encodeToPopulation(text);
     
-    // Simulate 30ms Spiking Window
     let totalSpikes = 0;
     for (let t = 0; t < 30; t++) {
       this.currentTime += DT;
@@ -282,20 +278,19 @@ class SpikingOrganicBrain {
     }
     this.lastSpikeCount = totalSpikes;
 
-    // STDP Wiring between active co-firing neurons
+    // STDP Wiring
     for (let i = 0; i < POPULATION_SIZE; i++) {
       if (inputVector[i] > 0.3) {
         for (let j = 0; j < POPULATION_SIZE; j++) {
           if (i !== j && inputVector[j] > 0.3) {
             const idx = i * POPULATION_SIZE + j;
-            // STDP potentiation
             this.weights[idx] = Math.min(2.5, this.weights[idx] + 0.04 * this.ACh);
           }
         }
       }
     }
 
-    // 1. Hippocampal CA3 Attractor Retrieval
+    // CA3 Attractor Retrieval
     let bestMatch = null;
     let highestResonance = 0;
 
@@ -309,9 +304,8 @@ class SpikingOrganicBrain {
       }
     }
 
-    // 2. Continuous Causal Learning (Link previous stimulus to current)
+    // Causal Association Formulation
     if (this.lastInputPattern && text !== this.lastResponseText) {
-      // Check if already bound
       let existing = this.ca3Associations.find(a => this.calculateOverlap(a.stimulusPattern, this.lastInputPattern) > 0.85);
       if (existing) {
         existing.responseText = text;
@@ -324,19 +318,18 @@ class SpikingOrganicBrain {
         });
         if (this.ca3Associations.length > 35) this.ca3Associations.shift();
       }
+      this.recentTriggerPattern = this.lastInputPattern;
     }
 
-    // 3. Basal Ganglia Action Gating
+    // Basal Ganglia Selection & Anti-Echo Gating
     let chosenUtterance = "...";
     let isActionSelected = false;
 
     if (bestMatch && bestMatch.strength >= 0.5) {
-      // Direct Pathway Selected
       chosenUtterance = bestMatch.responseText;
       isActionSelected = true;
     }
 
-    // Self-Echo Anti-Reflex: If utterance matches stimulus identically, remain silent (GABA Gating)
     if (chosenUtterance.toLowerCase() === text.toLowerCase()) {
       chosenUtterance = "...";
       isActionSelected = false;
@@ -344,50 +337,56 @@ class SpikingOrganicBrain {
 
     this.lastInputPattern = inputVector;
     this.lastResponseText = chosenUtterance;
+    if (isActionSelected) {
+      this.efferenceCopy = chosenUtterance;
+    }
 
     return {
       resonance: highestResonance.toFixed(2),
       spikes: totalSpikes,
       actionSelected: isActionSelected,
-      utterance: chosenUtterance
+      utterance: chosenUtterance,
+      isEfference: false
     };
   }
 
-  // True Spike-Timing-Dependent Plasticity (STDP) LTP Reinforcement
+  // True Causal STDP Modulation
   reinforceSTDP(positive = true) {
-    if (!this.lastInputPattern) return false;
-    const factor = positive ? 1.4 : 0.2; // Severe depression on negative
+    const factor = positive ? 1.4 : 0.05;
     this.DA = positive ? Math.min(1.0, this.DA + 0.3) : Math.max(0.05, this.DA - 0.35);
 
+    const targetPattern = this.recentTriggerPattern || this.lastInputPattern;
+    if (!targetPattern) return false;
+
     for (const assoc of this.ca3Associations) {
-      if (this.calculateOverlap(assoc.stimulusPattern, this.lastInputPattern) > 0.6) {
+      const matchTrigger = this.calculateOverlap(assoc.stimulusPattern, targetPattern) > 0.6;
+      const matchLast = this.lastInputPattern ? this.calculateOverlap(assoc.stimulusPattern, this.lastInputPattern) > 0.6 : false;
+      
+      if (matchTrigger || matchLast) {
         assoc.strength *= factor;
       }
     }
 
-    // Prune collapsed associations immediately (LTD)
     if (!positive) {
-      this.ca3Associations = this.ca3Associations.filter(a => a.strength > 0.35);
+      this.ca3Associations = this.ca3Associations.filter(a => a.strength > 0.4);
+      this.recentTriggerPattern = null;
     }
     return true;
   }
 
-  // Slow-Wave Sleep (SWS): Synaptic Homeostasis & Metabolic Clear
   sleepHomeostasis() {
     let prunedSynapses = 0;
-    // Synaptic scaling
     for (let i = 0; i < this.weights.length; i++) {
       if (this.weights[i] > 0) {
         if (this.weights[i] < 0.12) {
           this.weights[i] = 0;
           prunedSynapses++;
         } else {
-          this.weights[i] *= 0.88; // Downscaling
+          this.weights[i] *= 0.88;
         }
       }
     }
 
-    // Prune weak hippocampal CA3 traces
     const beforeCount = this.ca3Associations.length;
     this.ca3Associations = this.ca3Associations.filter(a => a.strength >= 0.6);
     prunedSynapses += (beforeCount - this.ca3Associations.length);
@@ -395,13 +394,15 @@ class SpikingOrganicBrain {
     this.glucose = 1.0;
     this.waste = 0.0;
     this.lastInputPattern = null;
+    this.recentTriggerPattern = null;
     this.lastResponseText = "";
+    this.efferenceCopy = null;
     return prunedSynapses;
   }
 }
 
-// --- CONTROLLER BINDINGS ---
-const brain = new SpikingOrganicBrain();
+// Controller
+const brain = new SpikingOrganicBrainV10();
 const termEl = document.getElementById("term");
 const dbgEl = document.getElementById("dbg");
 
@@ -414,17 +415,12 @@ function logStream(prefix, msg, cls = "c-brain") {
 }
 
 function updateHUD(result = null) {
-  let activeSyn = 0, sumWeight = 0;
+  let activeSyn = 0;
   for (let i = 0; i < brain.weights.length; i++) {
-    if (brain.weights[i] > 0.05) {
-      activeSyn++;
-      sumWeight += brain.weights[i];
-    }
+    if (brain.weights[i] > 0.05) activeSyn++;
   }
-  const avgW = activeSyn > 0 ? (sumWeight / activeSyn).toFixed(2) : "0.00";
 
   document.getElementById("synCount").textContent = activeSyn;
-  document.getElementById("avgSynWeight").textContent = avgW;
   document.getElementById("episodes").textContent = brain.ca3Associations.length;
 
   const vmEstimate = (-70 + (brain.lastSpikeCount * 0.4)).toFixed(1);
@@ -455,7 +451,9 @@ function triggerStimulus() {
 
   const res = brain.stimulate(val);
 
-  if (res.actionSelected && res.utterance !== "...") {
+  if (res.isEfference) {
+    logStream("🪞 ইফারেন্স কপি", "স্ব-উচ্চারিত শব্দ অভ্যন্তরীণ ফিডব্যাক ফিল্টারে ফিল্টার্ড", "c-self");
+  } else if (res.actionSelected && res.utterance !== "...") {
     document.getElementById("voiceVal").textContent = "মোটর অ্যাকশন সক্রিয়";
     document.getElementById("voiceM").style.width = "100%";
     logStream("🗣️ ব্রোকা স্পাইক বার্স্ট", `"${res.utterance}"`, "c-voice");
@@ -497,6 +495,9 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   brain.ca3Associations = [];
   brain.glucose = 1.0;
   brain.waste = 0.0;
+  brain.recentTriggerPattern = null;
+  brain.lastInputPattern = null;
+  brain.efferenceCopy = null;
   termEl.innerHTML = "";
   logStream("সেলুলার জিরো স্টেট", "সমস্ত মেমব্রেন ভোল্টেজ ও সিন্যাপস ক্লিয়ার। ব্রেন শূন্য অবস্থায় ফিরেছে।", "c-brain");
   updateHUD();
@@ -519,8 +520,8 @@ document.getElementById("tabDbg").addEventListener("click", () => {
 
 // ISOLATED SANDBOX TESTING
 function runBiophysicalTests() {
-  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>বায়োফিজিক্যাল নিউরাল স্যান্ডবক্সে টেস্ট চলছে...</div>";
-  const testBrain = new SpikingOrganicBrain();
+  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>বায়োফিজিক্যাল স্যান্ডবক্সে টেস্ট চলছে...</div>";
+  const testBrain = new SpikingOrganicBrainV10();
 
   const suite = [
     { name: "জিরো হার্ডকোড: কোডে কোনো ডিকশনারি বা প্রি-ডিফাইন্ড শব্দ নেই", run: () => true },
@@ -552,7 +553,7 @@ function runBiophysicalTests() {
     { 
       name: "স্লিপ ও প্রুনিং: সাব-থ্রেশহোল্ড দুর্বল সিন্যাপস অপসারিত হয়", 
       run: () => {
-        testBrain.weights[10] = 0.05; // weak sub-threshold
+        testBrain.weights[10] = 0.05;
         testBrain.sleepHomeostasis();
         return testBrain.weights[10] === 0;
       }
@@ -569,7 +570,6 @@ function runBiophysicalTests() {
   });
 }
 
-// Initial Boot
 logStream("কর্টেক্স", "মস্তিষ্ক জাগ্রত। এলআইএফ স্পাইকিং পপুলেশন ও বায়োফিজিক্যাল ক্লক সক্রিয়।", "c-brain");
 updateHUD();
 </script>
