@@ -3,311 +3,498 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OI – Organic Intelligence</title>
+<title>OI v2.0 – Organic Intelligence Engine</title>
 <style>
-:root{--bg:#020617;--card:#0b1329;--bd:#1e293b;--blue:#38bdf8;--green:#4ade80;--purple:#c084fc;--yellow:#facc15;--red:#f43f5e;--mute:#64748b;--txt:#f8fafc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--blue);font-family:'Courier New',Courier,monospace;padding:20px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
-header{text-align:center;margin-bottom:18px}h1{color:var(--txt);font-size:22px;letter-spacing:1px}.sub{color:var(--mute);font-size:12px;margin-top:5px}
-.wrap{width:100%;max-width:950px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--bd);padding:14px;border-radius:8px;font-size:12px}
-.ct{font-weight:bold;margin-bottom:6px}
-.meter{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-top:8px}.fill{height:100%;width:0;transition:width .3s}
-#term,#dbg{background:#010409;border:1px solid var(--bd);border-radius:8px;margin-top:14px;padding:14px;overflow-y:auto;font-size:13px;line-height:1.6;height:320px}
-#term div,#dbg div{margin:3px 0;overflow-wrap:anywhere}
-.row{display:flex;gap:8px;margin-top:12px}
-input{flex:1;min-width:0;background:var(--card);border:1px solid #0284c7;padding:12px 14px;color:#fff;border-radius:6px;font:inherit;font-size:14px;outline:none}
-input:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-button{background:#0284c7;color:#fff;border:none;padding:10px 16px;border-radius:6px;cursor:pointer;font:inherit;font-weight:bold}
-button:hover{background:#0369a1}button.danger{background:#be123c}button.danger:hover{background:#9f1239}button.ghost{background:transparent;border:1px solid var(--bd);color:var(--blue)}
-.tabs{display:flex;gap:8px;margin-top:16px}.tabs button.on{background:var(--blue);color:#020617}
-.c-ear{color:var(--yellow)}.c-eye{color:var(--purple)}.c-inh{color:var(--red)}.c-brain{color:var(--blue)}.c-voice{color:var(--green);font-weight:bold}.c-sys{color:var(--mute);font-style:italic}.pass{color:var(--green)}.fail{color:var(--red);font-weight:bold}
-.bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:11px;color:var(--mute)}
-textarea{flex:1;min-width:0;background:var(--card);border:1px solid var(--bd);padding:10px;color:#fff;border-radius:6px;font:inherit;font-size:12px;resize:vertical}.hide{display:none}.tune{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--mute)}.tune label{display:flex;align-items:center;gap:8px}.tune input{flex:none;width:120px;padding:0;border:none}
+  :root {
+    --bg: #0e0f12;
+    --surface: #171922;
+    --surface-border: #262938;
+    --text: #e6e8ee;
+    --mut: #8b90a0;
+    --blue: #4d82f3;
+    --purple: #a855f7;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 16px;
+    font-size: 13px;
+  }
+  header { margin-bottom: 16px; }
+  h1 { font-size: 20px; font-weight: 600; color: #fff; }
+  .sub { font-size: 12px; color: var(--mut); margin-top: 4px; }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .ct { font-weight: 600; margin-bottom: 6px; }
+  .c-ear { color: var(--yellow); }
+  .c-eye { color: var(--purple); }
+  .c-brain { color: var(--blue); }
+  .c-voice { color: var(--green); }
+  .c-inh { color: #f43f5e; }
+  
+  .meter {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .meter .fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.2s ease;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  input, button, select {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 12.5px;
+  }
+  input:focus { border-color: var(--blue); }
+  button { cursor: pointer; transition: 0.15s; }
+  button:hover { background: #222634; }
+  button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+  button.primary:hover { background: #3b71e8; }
+  button.active-tab { border-bottom: 2px solid var(--blue); }
+  
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--surface-border); padding-bottom: 6px; }
+  .tab-btn { background: transparent; border: none; font-weight: 500; color: var(--mut); }
+  .tab-btn.on { color: var(--text); border-bottom: 2px solid var(--blue); border-radius: 0; }
+  
+  #term, #dbg {
+    background: #08090b;
+    border: 1px solid var(--surface-border);
+    border-radius: 8px;
+    height: 380px;
+    overflow-y: auto;
+    padding: 12px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .hide { display: none; }
+  .log-line { margin-bottom: 4px; }
+  .pass { color: var(--green); }
+  .fail { color: var(--red); font-weight: bold; }
+  
+  .input-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .input-bar input { flex: 1; }
 </style>
 </head>
 <body>
-<header><h1>OI · অর্গানিক ইন্টেলিজেন্স</h1>
-<div class="sub">৪-অঙ্গ সিস্টেম • স্থায়ী মেমোরি • সিনট্যাক্স চেইন • ভুলে যাওয়া • র‍্যান্ডমনেস • স্প্রেডিং অ্যাক্টিভেশন • বিল্ট-ইন লাইভ টেস্ট ও ডিবাগ</div></header>
-<div class="wrap">
+
+<header>
+  <h1>OI · Organic Intelligence v2.0 (Biological Simulation)</h1>
+  <div class="sub">4-Organ Loop • Syntax Chain • Context Separation • Neuromodulators • Hippocampus Sleep Pruning</div>
+</header>
+
 <div class="grid">
-<div class="card"><div class="ct c-ear">👂 কান</div>তরঙ্গ শক্তি: <span id="earVal">০%</span><div class="meter"><div id="earM" class="fill" style="background:var(--yellow)"></div></div></div>
-<div class="card"><div class="ct c-eye">👁️ চোখ</div>মনোযোগ: <span id="eyeVal">শান্ত</span><div class="meter"><div id="eyeM" class="fill" style="background:var(--purple)"></div></div></div>
-<div class="card"><div class="ct c-brain">🧠 মস্তিষ্ক</div>ধারণা: <span id="nodes">0</span> • সংযোগ: <span id="syn">0</span><br>দীর্ঘমেয়াদী: <span id="semN">0</span> • প্রসঙ্গ: <span id="wm">—</span><div class="meter"><div id="brainM" class="fill" style="background:var(--blue)"></div></div></div>
-<div class="card"><div class="ct c-voice">🗣️ কণ্ঠ</div>স্পন্দন: <span id="voiceVal">বিশ্রামে</span><div class="meter"><div id="voiceM" class="fill" style="background:var(--green)"></div></div></div>
+  <div class="card">
+    <div class="ct c-ear">👂 কান (Auditory Input)</div>
+    তরঙ্গ শক্তি: <span id="earVal">0%</span>
+    <div class="meter"><div id="earM" class="fill" style="background: var(--yellow);"></div></div>
+  </div>
+  <div class="card">
+    <div class="ct c-eye">👁️ চোখ (Visual/Attention)</div>
+    মনোযোগ গেট: <span id="eyeVal">স্বাভাবিক</span>
+    <div class="meter"><div id="eyeM" class="fill" style="background: var(--purple);"></div></div>
+  </div>
+  <div class="card">
+    <div class="ct c-brain">🧠 মস্তিষ্ক (Neocortex & Memory)</div>
+    নোড: <span id="nodes">0</span> • সিন্যাপস: <span id="syn">0</span> • প্রসঙ্গ: <span id="wm">-</span>
+    <div class="meter"><div id="brainM" class="fill" style="background: var(--blue);"></div></div>
+  </div>
+  <div class="card">
+    <div class="ct c-voice">🗣️ কণ্ঠ (Motor / Broca)</div>
+    অবস্থা: <span id="voiceVal">বিশ্রামে</span>
+    <div class="meter"><div id="voiceM" class="fill" style="background: var(--green);"></div></div>
+  </div>
+  <div class="card" style="grid-column: 1 / -1;">
+    <div class="ct c-inh">⚗️ নিউরোমডুলেটর ও মেটাবলিজম</div>
+    <div id="mods">DA: 0.3 | NA: 0.2 | ACh: 0.4 | 5-HT: 0.5 | শক্তি: 100% | গ্লুকোজ: 100% | বর্জ্য: 0%</div>
+  </div>
 </div>
-<div class="tabs"><button id="tabT" class="on">টার্মিনাল</button><button id="tabD" class="ghost">🛠 ডিবাগ ও টেস্ট</button></div>
-<div id="term" aria-live="polite"></div>
+
+<div class="controls">
+  <button id="sleepBtn">😴 ঘুম দিন (Consolidation & Pruning)</button>
+  <button id="rewardBtn">👍 প্রশংসা (Dopamine +)</button>
+  <button id="punishBtn">👎 ভুল শোধরান (Punishment -)</button>
+  <button id="resetBtn">🔄 ফ্যাক্টরি রিসেট</button>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn on" id="tabTerm">টার্মিনাল (Terminal)</button>
+  <button class="tab-btn" id="tabDbg">🛠 ডিবাগ ও অটোমেটিক টেস্ট (Debug & Tests)</button>
+</div>
+
+<div id="term"></div>
 <div id="dbg" class="hide"></div>
-<div class="row" id="dbgBtns" style="display:none"><button id="runTests">সেলফ-টেস্ট চালান</button><button id="inspect" class="ghost">মেমোরি দেখুন</button><button id="clearDbg" class="ghost">লগ পরিষ্কার</button></div>
-<div class="tune"><label>র‍্যান্ডমনেস <input type="range" id="temp" min="0" max="1.5" step="0.1" value="0.5"><b id="tempV">0.5</b></label><label>ভুলে যাওয়া % <input type="range" id="fgt" min="0" max="10" step="1" value="3"><b id="fgtV">3</b></label></div>
-<div class="row"><button id="sleepBtn" class="ghost">😴 ঘুমান</button><button id="up" class="ghost">👍 ভালো উত্তর</button><button id="down" class="ghost">👎 ভুল উত্তর</button></div>
-<div class="row"><input id="in" placeholder="এখানে লিখুন এবং Enter চাপুন..." autocomplete="off"><button id="send">প্রেরণ</button><button id="reset" class="danger">রিসেট</button></div>
-<div class="row"><textarea id="genome" rows="2" placeholder="🧬 জিনোম কোড (এক ব্রাউজারের ব্রেন অন্য ব্রাউজারে আনতে এখানে পেস্ট করুন)"></textarea></div>
-<div class="row"><button id="gMake" class="ghost">🧬 জিনোম তৈরি</button><button id="gLink" class="ghost">🔗 লিংক তৈরি</button><button id="gMerge" class="ghost">🧬 জিনোম মেলান</button></div>
-<div class="bar"><span>হিপোক্যাম্পাস: <strong id="store" style="color:var(--green)">প্রস্তুত</strong></span><span>রিফ্রেশ করলেও স্মৃতি থাকবে (এই ব্রাউজারে)</span></div>
+
+<div class="input-bar">
+  <input type="text" id="userInput" placeholder="মস্তিষ্ককে কিছু বলুন (যেমন: 'hello' অথবা 'how are you?')...">
+  <button class="primary" id="sendBtn">পাঠান (Send)</button>
 </div>
+
 <script>
-const KEY="OI_CORTEX_V1";
-// ---------- Storage adapter: localStorage, with in-memory fallback ----------
-function makeStorage(){
-  const mem={};
-  let ok=true;
-  try{localStorage.setItem("__t","1");localStorage.removeItem("__t");}catch(e){ok=false;}
-  return{persistent:ok,
-    get:k=>{try{return ok?localStorage.getItem(k):(mem[k]??null)}catch(e){return mem[k]??null}},
-    set:(k,v)=>{try{if(ok)localStorage.setItem(k,v);else mem[k]=v;return true}catch(e){mem[k]=v;return false}},
-    remove:k=>{try{if(ok)localStorage.removeItem(k)}catch(e){}delete mem[k]}};
-}
-// ---------- Engine (no DOM access: fully testable) ----------
-class OI{
-  constructor(storage,key){this.st=storage;this.key=key;this.decay=.97;this.spread=.3;this.pruned=0;this.inhib=.15;this.consT=2;this.cap=12;this.clear();this.restore();}
-  clear(){this.sem=new Map();this.valence=new Map();this.wm=[];this.lastRun=null;this.bridges=new Map();this.chain=new Map();this.vocab=new Set();this.last=[];}
-  static tokenize(text){return String(text).toLowerCase().trim().replace(/[?!.,;:_।"'()]/g,"").split(/\s+/).filter(Boolean);}
-  ear(text){const tokens=OI.tokenize(text);return{tokens,energy:Math.min(100,tokens.length*20)};}
-  eye(tokens,energy){const d=tokens.length?new Set(tokens).size/tokens.length:0;const level=Math.min(100,Math.floor(d*75+energy*.25));return{level,mult:level>60?1.5:1};}
-  bump(map,a,b,inc=1){if(!map.has(a))map.set(a,new Map());const m=map.get(a);m.set(b,(m.get(b)||0)+inc);}
-  learn(tokens,sal=1){
-    if(!tokens||!tokens.length)return;
-    this.tick();
-    tokens.forEach(t=>this.vocab.add(t));
-    for(let i=0;i<tokens.length-1;i++)this.bump(this.chain,tokens[i],tokens[i+1],sal);
-    for(const a of this.last)for(const b of tokens)if(a!==b)this.bump(this.bridges,a,b,sal);
-    this.last=tokens;this.save();
+// --- BIOLOGICAL ORGANIC INTELLIGENCE ENGINE v2.0 ---
+class OrganicBrain {
+  constructor() {
+    this.nodes = new Map(); // Concept/Word nodes
+    this.synapses = new Map(); // Synaptic connection weights: key = "A->B", val = weight
+    this.syntaxChains = new Map(); // Sequential transitions: "A" -> Map(B: count)
+    this.qaAssociations = new Map(); // Hippocampal semantic binding: inputKey -> responseString
+    
+    // Neurotransmitters
+    this.DA = 0.4;  // Dopamine (Curiosity/Reward)
+    this.NA = 0.3;  // Noradrenaline (Alertness / Prediction error)
+    this.ACh = 0.5; // Acetylcholine (Plasticity / Learning rate)
+    this.HT = 0.5;  // 5-HT Serotonin (Impulse Inhibition)
+    this.energy = 1.0;
+    this.waste = 0.0;
+    
+    this.workingMemory = []; // Prefrontal context buffer
+    this.lastInput = "";
+    this.lastSpoken = "";
   }
-  // ভুলে যাওয়া: প্রতি অভিজ্ঞতায় সব সংযোগ একটু দুর্বল; খুব দুর্বল হলে মুছে যায়
-  tick(){
-    if(this.decay>=1)return 0;let n=0;
-    const run=(g,f)=>{for(const[k,m]of[...g]){for(const[w,v]of[...m]){const nv=v*f;if(nv<.05){m.delete(w);n++;}else m.set(w,nv);}if(!m.size)g.delete(k);}};
-    run(this.bridges,this.decay);run(this.chain,this.decay);run(this.sem,1-(1-this.decay)*.1);
-    this.pruned=n;return n;
+
+  tokenize(text) {
+    if (!text) return [];
+    return text.toLowerCase()
+      .replace(/[^\w\s\u0980-\u09FF]/g, "")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
   }
-  // স্প্রেডিং অ্যাক্টিভেশন: সরাসরি সংযোগ + ২য় ধাপের প্রতিবেশী
-  activate(tokens,mult=1){
-    const echo=new Set(tokens),act=new Map(),maps=[this.bridges,this.sem];
-    const add=(c,v)=>{if(!echo.has(c))act.set(c,(act.get(c)||0)+v);};
-    for(const w of tokens)for(const g of maps){const br=g.get(w);if(!br)continue;
-      for(const[c,wt]of br){add(c,wt*mult);for(const g2 of maps){const b2=g2.get(c);if(b2)for(const[d,w2]of b2)add(d,wt*w2*this.spread);}}}
-    // কার্যকরী স্মৃতি: সাম্প্রতিক প্রসঙ্গ শব্দও হালকা জাগায়
-    for(const w of this.wm){if(echo.has(w))continue;for(const g of maps){const br=g.get(w);if(br)for(const[c,wt]of br)add(c,wt*.3);}}
-    return act;
-  }
-  attend(tokens){this.wm=[...new Set([...tokens,...this.wm])].slice(0,7);}
-  emotion(tokens){return tokens.reduce((m,t)=>Math.max(m,Math.abs(this.valence.get(t)||0)),0);}
-  // ডোপামিন: ভালো উত্তর সংযোগ শক্তিশালী, ভুল উত্তর দুর্বল; শব্দের আবেগ-মূল্যও বদলায়
-  reward(r){const L=this.lastRun;if(!L||!L.out.length)return false;const f=r>0?1.5:.5;
-    for(const a of L.inp)for(const b of L.out)for(const g of[this.bridges,this.sem]){const m=g.get(a);if(m&&m.has(b))m.set(b,m.get(b)*f);}
-    for(let i=0;i<L.out.length-1;i++){const m=this.chain.get(L.out[i]);if(m&&m.has(L.out[i+1]))m.set(L.out[i+1],m.get(L.out[i+1])*f);}
-    for(const w of[...L.inp,...L.out])this.valence.set(w,Math.max(-1,Math.min(1,(this.valence.get(w)||0)+r*.3)));
-    this.save();return true;}
-  // রিকনসলিডেশন: স্মৃতি মনে করলে সংযোগ সামান্য বদলে আবার লেখা হয় (±৫%)
-  reconsolidate(inp,out,rng=Math.random){for(const a of inp){const m=this.bridges.get(a);if(!m)continue;for(const b of out)if(m.has(b))m.set(b,m.get(b)*(1+(rng()-.5)*.1));}}
-  // ঘুম: শক্তিশালী হিপোক্যাম্পাল স্মৃতি → নিওকর্টেক্স (ধীরে ভোলে); হোমিওস্ট্যাটিক স্কেলিং; দুর্বল ছাঁটাই
-  sleep(){let moved=0,pruned=0;
-    for(const[a,m]of this.bridges)for(const[b,w]of[...m])if(w>=this.consT){this.bump(this.sem,a,b,w*.5);m.set(b,w*.5);moved++;}
-    for(const g of[this.bridges,this.sem,this.chain])for(const m of g.values()){let t=0;for(const v of m.values())t+=v;if(t>this.cap){const f=this.cap/t;for(const[k,v]of[...m])m.set(k,v*f);}}
-    for(const g of[this.bridges,this.chain])for(const[k,m]of[...g]){for(const[w,v]of[...m])if(v<.1){m.delete(w);pruned++;}if(!m.size)g.delete(k);}
-    this.wm=[];this.save();return{moved,pruned};}
-  // temp=0 → সবচেয়ে শক্তিটা; temp>0 → শক্তি অনুযায়ী সম্ভাবনায় বাছাই
-  pick(entries,temp,rng){
-    if(!entries.length)return null;
-    if(temp<=0)return entries.reduce((a,b)=>b[1]>a[1]?b:a)[0];
-    const ws=entries.map(([,v])=>Math.pow(v,1/temp)),tot=ws.reduce((a,b)=>a+b,0);
-    let r=rng()*tot;for(let i=0;i<ws.length;i++){r-=ws[i];if(r<=0)return entries[i][0];}
-    return entries[entries.length-1][0];
-  }
-  think(tokens,mult=1,temp=0,rng=Math.random){
-    if(!tokens||!tokens.length)return null;
-    const act=this.activate(tokens,mult);if(!act.size)return null;
-    const mx=Math.max(...act.values());
-    let cur=this.pick([...act].filter(([,v])=>v>=mx*this.inhib),temp,rng);
-    const out=[cur],seen=new Set(out);
-    for(let i=0;i<12;i++){
-      const ch=this.chain.get(cur);if(!ch)break;
-      const opts=[...ch].filter(([w])=>!seen.has(w));if(!opts.length)break;
-      const nx=this.pick(opts,temp,rng);out.push(nx);seen.add(nx);cur=nx;
+
+  // Auditory Ingestion & Thalamus Gating
+  processInput(inputStr) {
+    const tokens = this.tokenize(inputStr);
+    if (tokens.length === 0) return null;
+
+    // Metabolic cost
+    this.energy = Math.max(0.05, this.energy - 0.02);
+    this.waste = Math.min(1.0, this.waste + 0.03);
+
+    // Context Novelty & Prediction Error (Thalamus Gate)
+    const knownCount = tokens.filter(t => this.nodes.has(t)).length;
+    const novelty = 1.0 - (knownCount / Math.max(tokens.length, 1));
+    this.NA = 0.2 + (novelty * 0.8); // Spike alert if unknown words
+    
+    // Context Separation: If novelty is high, flush obsolete working memory
+    if (novelty > 0.6 && this.workingMemory.length > 0) {
+      this.workingMemory = []; // Prevent overlap bug (e.g., love you + how are you mix)
     }
-    return out.join(" ");
-  }
-  // থ্যালামাস গেট: অবাক/আবেগী/মনোযোগী ইনপুট বেশি সংকেত পাঠায়
-  thalamus(tokens,fm){const k=tokens.filter(t=>this.vocab.has(t)).length,su=tokens.length?1-k/tokens.length:0,emo=this.emotion(tokens);return{surprise:su,emo,gate:Math.min(1.6,.6+.4*su+.5*emo+(fm-1)*.6)};}
-  // প্রেডিক্টিভ কোডিং: আগের ইনপুট থেকে যা আশা করা হয়েছিল তার সঙ্গে মিলিয়ে ভুল-অনুমান (০=ঠিক, ১=সম্পূর্ণ অবাক)
-  predictionError(tokens){const a=this.activate(this.last);if(!a.size||!tokens.length)return 1;return 1-tokens.filter(t=>a.has(t)).length/tokens.length;}
-  // স্পাইকিং নিউরন (Leaky Integrate-and-Fire): সংযোগ-শক্তি থেকে ইনপুট কারেন্ট, ভোল্টেজ জমে, সীমা ছুঁলে স্পাইক, তারপর পার্শ্ব-অবদমন
-  simulate(tokens,mult=1,o={}){
-    const{steps=40,theta=1,leak=.8,noise=0,rng=Math.random,gate=1}=o;
-    const echo=new Set(tokens),act=this.activate(tokens,mult),spikes=new Map();
-    const mx=Math.max(0,...act.values());if(!mx)return{order:[],spikes};
-    const v=new Map(),refr=new Map();let prev=[];
-    for(let t=0;t<steps;t++){
-      const cur=new Map();
-      for(const[w,a]of act)cur.set(w,(a/mx)*.35*gate+noise*(rng()-.5));
-      for(const sp of prev)for(const g of[this.bridges,this.sem]){const m=g.get(sp);if(m)for(const[c,wt]of m)if(!echo.has(c))cur.set(c,(cur.get(c)||0)+wt*.05);}
-      const fired=[];
-      for(const[w,i]of cur){if((refr.get(w)||0)>t)continue;const nv=(v.get(w)||0)*leak+i;
-        if(nv>=theta){fired.push(w);v.set(w,0);refr.set(w,t+3);if(!spikes.has(w))spikes.set(w,[]);spikes.get(w).push(t);}else v.set(w,nv);}
-      if(fired.length)for(const[w,x]of v)if(!fired.includes(w))v.set(w,Math.max(0,x-.15*fired.length));
-      prev=fired;
+
+    tokens.forEach(t => {
+      this.nodes.set(t, (this.nodes.get(t) || 0) + 1);
+      this.workingMemory.push(t);
+    });
+    if (this.workingMemory.length > 6) this.workingMemory.splice(0, this.workingMemory.length - 6);
+
+    // Build immediate syntax transition pairs
+    for (let i = 0; i < tokens.length - 1; i++) {
+      const from = tokens[i];
+      const to = tokens[i+1];
+      const synKey = `${from}->${to}`;
+      this.synapses.set(synKey, (this.synapses.get(synKey) || 0.1) + (0.3 * this.ACh));
+      
+      if (!this.syntaxChains.has(from)) this.syntaxChains.set(from, new Map());
+      const cMap = this.syntaxChains.get(from);
+      cMap.set(to, (cMap.get(to) || 0) + 1);
     }
-    return{order:[...spikes.keys()].sort((a,b)=>spikes.get(a)[0]-spikes.get(b)[0]),spikes};
+
+    // Associative reasoning: check hippocampal QA
+    const inputKey = tokens.join(" ");
+    let chosenResponse = "";
+    
+    if (this.qaAssociations.has(inputKey)) {
+      chosenResponse = this.qaAssociations.get(inputKey);
+    } else {
+      // Fuzzy spreading match across working memory
+      let bestMatch = null;
+      let highestScore = 0;
+      for (const [q, a] of this.qaAssociations.entries()) {
+        const qTokens = q.split(" ");
+        let overlap = 0;
+        tokens.forEach(t => { if (qTokens.includes(t)) overlap++; });
+        const score = overlap / Math.max(qTokens.length, tokens.length);
+        if (score > highestScore && score >= 0.45) {
+          highestScore = score;
+          bestMatch = a;
+        }
+      }
+      
+      if (bestMatch) {
+        chosenResponse = bestMatch;
+      } else {
+        // Fallback: Autonomous Curiosity / Echo attempt with Inhibition
+        if (this.lastInput && this.lastInput !== inputStr) {
+          // Associate previous input with current as dynamic learning
+          this.qaAssociations.set(this.lastInput, inputStr);
+          this.DA = Math.min(1.0, this.DA + 0.2); // Curiosity satisfied
+        }
+        chosenResponse = this.generateSyntaxSequence(tokens[0]);
+      }
+    }
+
+    // Broca Inhibition: prevent 1:1 direct mechanical echoing
+    if (chosenResponse === inputStr && tokens.length > 1) {
+      chosenResponse = "ki?"; 
+    }
+
+    this.lastInput = inputKey;
+    this.lastSpoken = chosenResponse;
+    return {
+      novelty: novelty.toFixed(2),
+      gate: (1.0 + novelty * 0.5).toFixed(2),
+      spoken: chosenResponse
+    };
   }
-  // STDP: আগে স্পাইক করা → পরে স্পাইক করা সংযোগ শক্ত; উল্টো দিক দুর্বল
-  stdp(spikes){let n=0;const ws=[...spikes.keys()];
-    for(const a of ws)for(const b of ws){if(a===b)continue;const dt=spikes.get(b)[0]-spikes.get(a)[0];if(dt<=0||dt>20)continue;const e=Math.exp(-dt/8);
-      const m=this.bridges.get(a);if(m&&m.has(b)){m.set(b,m.get(b)+.1*e);n++;}
-      const r=this.bridges.get(b);if(r&&r.has(a)){r.set(a,Math.max(0,r.get(a)-.05*e));n++;}}
-    return n;}
-  // ব্রোকা: প্রথম স্পাইক করা ধারণা থেকে সিনট্যাক্স চেইন ধরে বাক্য সাজায়
-  broca(start,temp=0,rng=Math.random){const out=[start],seen=new Set(out);let cur=start;
-    for(let i=0;i<12;i++){const ch=this.chain.get(cur);if(!ch)break;const o=[...ch].filter(([w])=>!seen.has(w));if(!o.length)break;const nx=this.pick(o,temp,rng);out.push(nx);seen.add(nx);cur=nx;}
-    return out.join(" ");}
-  respond(tokens,mult=1,temp=0,rng=Math.random,gate=1){
-    const sim=this.simulate(tokens,mult,{noise:temp*.5,rng,gate});this.lastSim=sim;
-    if(!sim.order.length)return null;this.stdp(sim.spikes);return this.broca(sim.order[0],temp,rng);}
-  // একাধিক ব্রাউজারের ব্রেন মিলিয়ে নেয় (প্রতিটি সংযোগের সর্বোচ্চ মান; বারবার মেলালেও যোগ হয় না)
-  mergeFrom(json){try{const d=JSON.parse(json);const mx=(g,rows)=>{for(const[a,m]of rows||[])for(const[b,x]of m){if(!g.has(a))g.set(a,new Map());const t=g.get(a);t.set(b,Math.max(t.get(b)||0,x));}};
-    mx(this.bridges,d.b);mx(this.chain,d.s);mx(this.sem,d.m);(d.v||[]).forEach(w=>this.vocab.add(w));
-    for(const[w,x]of d.val||[])if(Math.abs(x)>Math.abs(this.valence.get(w)||0))this.valence.set(w,x);
-    this.st.set(this.key,this.serialize());return true;}catch(e){return false;}}
-  // জিনোম: পুরো ব্রেনকে একটি টেক্সট-কোডে রূপ দেয়; যেকোনো ব্রাউজারে (লগইন/সার্ভার ছাড়া) মেলানো যায়
-  genome(){return btoa(unescape(encodeURIComponent(this.serialize())));}
-  absorb(g){try{return this.mergeFrom(decodeURIComponent(escape(atob(String(g).trim().replace(/^.*#g=/,"")))));}catch(e){return false;}}
-  nested(m){return[...m].map(([k,v])=>[k,[...v]]);}
-  serialize(){return JSON.stringify({b:this.nested(this.bridges),s:this.nested(this.chain),v:[...this.vocab],l:this.last,m:this.nested(this.sem),val:[...this.valence]});}
-  save(){const r=this.st.set(this.key,this.serialize());if(this.onSave)this.onSave();return r;}
-  restore(){
-    const raw=this.st.get(this.key);if(!raw)return;
-    try{const d=JSON.parse(raw);
-      this.bridges=new Map(d.b.map(([k,v])=>[k,new Map(v)]));
-      this.chain=new Map(d.s.map(([k,v])=>[k,new Map(v)]));
-      this.vocab=new Set(d.v);this.last=d.l||[];
-      if(d.m)this.sem=new Map(d.m.map(([k,v])=>[k,new Map(v)]));if(d.val)this.valence=new Map(d.val);
-    }catch(e){this.clear();this.st.remove(this.key);dlog("fail","স্মৃতি নষ্ট ছিল, রিসেট হয়েছে: "+e.message);}
+
+  // Broca Sequential Slot Generator (fixes random word scramble)
+  generateSyntaxSequence(seedToken) {
+    if (!this.syntaxChains.has(seedToken)) return seedToken ? seedToken + "?" : null;
+    let curr = seedToken;
+    const result = [curr];
+    const visited = new Set([curr]);
+
+    for (let step = 0; step < 5; step++) {
+      const nextMap = this.syntaxChains.get(curr);
+      if (!nextMap || nextMap.size === 0) break;
+
+      // Select highest transition weight
+      let bestNext = null;
+      let maxCount = -1;
+      for (const [cand, cnt] of nextMap.entries()) {
+        if (!visited.has(cand) && cnt > maxCount) {
+          maxCount = cnt;
+          bestNext = cand;
+        }
+      }
+      if (!bestNext) break;
+      result.push(bestNext);
+      visited.add(bestNext);
+      curr = bestNext;
+    }
+    return result.join(" ");
   }
-  reset(){this.clear();this.st.remove(this.key);}
-  synapses(){let n=0;for(const m of this.chain.values())n+=m.size;return n;}
+
+  // Reinforcement Feedback (Dopamine & Synaptic Plasticity)
+  reinforce(positive = true) {
+    if (!this.lastInput || !this.lastSpoken) return false;
+    const factor = positive ? 1.25 : 0.65;
+    this.DA = positive ? Math.min(1.0, this.DA + 0.3) : Math.max(0.1, this.DA - 0.2);
+    
+    // Strengthen or weaken associated pairs
+    const tokens = this.tokenize(this.lastSpoken);
+    for (let i = 0; i < tokens.length - 1; i++) {
+      const synKey = `${tokens[i]}->${tokens[i+1]}`;
+      if (this.synapses.has(synKey)) {
+        this.synapses.set(synKey, Math.max(0.01, this.synapses.get(synKey) * factor));
+      }
+    }
+    if (!positive && this.qaAssociations.has(this.lastInput)) {
+      this.qaAssociations.delete(this.lastInput);
+    }
+    return true;
+  }
+
+  // Sleep Consolidation & Synaptic Pruning
+  sleep() {
+    let prunedSynapses = 0;
+    // Synaptic Pruning: Drop weak connections (< 0.15)
+    for (const [key, weight] of this.synapses.entries()) {
+      if (weight < 0.18) {
+        this.synapses.delete(key);
+        prunedSynapses++;
+      } else {
+        this.synapses.set(key, weight * 0.95); // Homeostatic downscaling
+      }
+    }
+    // Clean metabolic waste
+    this.waste = 0.0;
+    this.energy = 1.0;
+    this.workingMemory = [];
+    return prunedSynapses;
+  }
 }
-// ---------- Debug system ----------
-const $=id=>document.getElementById(id);
-function dlog(cls,msg){const d=$("dbg");const r=document.createElement("div");r.className=cls;r.textContent=msg;d.appendChild(r);d.scrollTop=d.scrollHeight;}
-window.addEventListener("error",e=>dlog("fail","ERROR: "+e.message+" @"+e.lineno));
-window.addEventListener("unhandledrejection",e=>dlog("fail","PROMISE: "+(e.reason&&e.reason.message||e.reason)));
-const TESTS=[
- ["টোকেনাইজ: বিরামচিহ্ন ও দাঁড়ি মুছে যায়",()=>JSON.stringify(OI.tokenize("Hello, World! আমি ভালো আছি।"))===JSON.stringify(["hello","world","আমি","ভালো","আছি"])],
- ["টোকেনাইজ: খালি ইনপুট → শূন্য টোকেন",()=>OI.tokenize("   ").length===0],
- ["শেখা: শব্দভাণ্ডার ও সিনট্যাক্স গঠিত হয়",()=>{const o=new OI(makeStorage(),"t1");o.learn(["a","b","c"]);return o.vocab.size===3&&o.synapses()===2;}],
- ["চিন্তা: শেখানো জোড়া থেকে উত্তর আসে",()=>{const o=new OI(makeStorage(),"t2");o.learn(["hello"]);o.learn(["world","is","nice"]);return o.think(["hello"])==="world is nice";}],
- ["চিন্তা: ইনপুট শব্দ প্রতিধ্বনি হয় না",()=>{const o=new OI(makeStorage(),"t3");o.learn(["x"]);o.learn(["x","y"]);const r=o.think(["x"]);return r===null||!r.split(" ").includes("x");}],
- ["চিন্তা: অজানা ইনপুটে null (নীরব)",()=>new OI(makeStorage(),"t4").think(["unknown"])===null],
- ["লুপ সুরক্ষা: চক্রাকার চেইনে থামে",()=>{const o=new OI(makeStorage(),"t5");o.learn(["q"]);o.learn(["a","b","a","b","a"]);const r=o.think(["q"]);return typeof r==="string"&&r.split(" ").length<=13;}],
- ["স্থায়িত্ব: সেভ→লোড রাউন্ডট্রিপ",()=>{const s=makeStorage();const o=new OI(s,"t6");o.learn(["a"]);o.learn(["b","c"]);const p=new OI(s,"t6");return p.think(["a"])==="b c"&&p.vocab.size===3;}],
- ["স্থায়িত্ব: নষ্ট ডেটা থাকলে ক্র্যাশ করে না",()=>{const s=makeStorage();s.set("t7","{bad json");const o=new OI(s,"t7");return o.vocab.size===0;}],
- ["রিসেট: সব মেমোরি মুছে যায়",()=>{const s=makeStorage();const o=new OI(s,"t8");o.learn(["a","b"]);o.reset();return o.vocab.size===0&&s.get("t8")===null;}],
- ["চোখ: বৈচিত্র্যময় ইনপুটে ফোকাস ১.৫x",()=>new OI(makeStorage(),"t9").eye(["a","b","c","d","e"],100).mult===1.5]
-,
-["ভুলে যাওয়া: প্রতি ধাপে শক্তি কমে",()=>{const o=new OI(makeStorage(),"d1");o.decay=.5;o.learn(["a"]);o.learn(["b"]);const w=o.bridges.get("a").get("b");o.tick();return Math.abs(o.bridges.get("a").get("b")-w*.5)<1e-9;}],
- ["ভুলে যাওয়া: দুর্বল সংযোগ মুছে যায়",()=>{const o=new OI(makeStorage(),"d2");o.decay=.5;o.learn(["a"]);o.learn(["b"]);for(let i=0;i<10;i++)o.tick();return !o.bridges.has("a");}],
- ["ব্যবহার সংযোগ ধরে রাখে, অব্যবহৃত মুছে যায়",()=>{const o=new OI(makeStorage(),"d3");o.decay=.9;o.learn(["old"]);o.learn(["gone"]);for(let i=0;i<15;i++){o.learn(["k"]);o.learn(["v"]);}const kv=o.bridges.get("k"),og=o.bridges.get("old");return !!kv&&kv.get("v")>1&&(!og||!og.has("gone"));}],
- ["স্প্রেডিং: ২য় ধাপের শব্দও জাগে",()=>{const o=new OI(makeStorage(),"s1");o.decay=1;o.learn(["a"]);o.learn(["b"]);o.learn(["c"]);const m=o.activate(["a"]);return m.has("b")&&m.has("c")&&m.get("b")>m.get("c");}],
- ["র‍্যান্ডম: temp=0 সবসময় একই, temp>0 ভিন্ন উত্তর",()=>{const o=new OI(makeStorage(),"r1");o.learn(["q"]);o.learn(["b","c"]);const d1=o.think(["q"],1,0,()=>0),d2=o.think(["q"],1,0,()=>.99);const s1=o.think(["q"],1,1,()=>0),s2=o.think(["q"],1,1,()=>.99);return d1===d2&&s1!==s2;}]
-,
-["ঘুম: শক্তিশালী স্মৃতি নিওকর্টেক্সে যায়",()=>{const o=new OI(makeStorage(),"z1");o.decay=1;for(let i=0;i<4;i++){o.learn(["a"]);o.learn(["b"]);}const w=o.bridges.get("a").get("b");const r=o.sleep();return r.moved>0&&o.sem.get("a").get("b")>0&&o.bridges.get("a").get("b")<w;}],
- ["নিওকর্টেক্স হিপোক্যাম্পাসের চেয়ে ধীরে ভোলে",()=>{const o=new OI(makeStorage(),"z2");o.decay=.5;o.bump(o.bridges,"a","b");o.bump(o.sem,"a","b");o.tick();return o.sem.get("a").get("b")>o.bridges.get("a").get("b");}],
- ["হোমিওস্ট্যাসিস: মোট শক্তি সীমার মধ্যে থাকে",()=>{const o=new OI(makeStorage(),"z3");o.decay=1;o.consT=99;o.cap=3;o.learn(["a"]);o.learn(["x","y","z","x","y","z"]);o.sleep();let t=0;for(const v of o.bridges.get("a").values())t+=v;return t<=3.0001;}],
- ["ডোপামিন: পুরস্কারে শক্তি বাড়ে, শাস্তিতে কমে",()=>{const o=new OI(makeStorage(),"z4");o.decay=1;o.learn(["h"]);o.learn(["r","s"]);o.lastRun={inp:["h"],out:["r","s"]};const w=o.bridges.get("h").get("r");o.reward(1);const up=o.bridges.get("h").get("r");o.reward(-1);return up>w&&o.bridges.get("h").get("r")<up&&o.valence.has("h");}],
- ["আবেগ: valence থাকলে emotion > 0",()=>{const o=new OI(makeStorage(),"z5");o.valence.set("x",.6);return o.emotion(["x","y"])===.6&&o.emotion(["y"])===0;}],
- ["কার্যকরী স্মৃতি: প্রসঙ্গ শব্দ অজানা ইনপুটেও সাড়া জাগায়",()=>{const o=new OI(makeStorage(),"z6");o.decay=1;o.learn(["ctx"]);o.learn(["z"]);const none=o.activate(["unk"]).has("z");o.attend(["ctx"]);return !none&&o.activate(["unk"]).has("z");}],
- ["পার্শ্ব-অবদমন: খুব দুর্বল প্রতিযোগী চুপ থাকে",()=>{const o=new OI(makeStorage(),"z7");o.decay=1;o.learn(["q"]);o.learn(Array(10).fill("big"));o.learn(["q"]);o.learn(["weak"]);return o.think(["q"],1,1,()=>.9999)==="big";}],
- ["স্যালিয়েন্স: গুরুত্ব বেশি হলে বেশি শক্তিতে লেখা হয়",()=>{const o=new OI(makeStorage(),"z8");o.decay=1;o.learn(["a","b"],3);return o.chain.get("a").get("b")===3;}],
- ["রিকনসলিডেশন: ±৫% সীমায় বদলায়",()=>{const o=new OI(makeStorage(),"z9");o.decay=1;o.learn(["h"]);o.learn(["r"]);o.reconsolidate(["h"],["r"],()=>1);return Math.abs(o.bridges.get("h").get("r")-1.05)<1e-9;}],
- ["স্থায়িত্ব: নিওকর্টেক্স ও আবেগ সেভ হয়",()=>{const st=makeStorage();const o=new OI(st,"z10");o.bump(o.sem,"a","b",2);o.valence.set("a",.3);o.learn(["a"]);const p=new OI(st,"z10");return p.sem.get("a").get("b")>0&&p.valence.get("a")===.3;}]
-,
-["স্পাইকিং: শক্তিশালী নিউরন স্পাইক করে, দুর্বল চুপ থাকে",()=>{const o=new OI(makeStorage(),"n1");o.decay=1;o.learn(["q"]);o.learn(Array(10).fill("big"));o.learn(["q"]);o.learn(["weak"]);const s=o.simulate(["q"]).spikes;return s.has("big")&&!s.has("weak");}],
- ["স্পাইকিং পথে শেখানো উত্তর আসে (ওয়ার্নিক→ব্রোকা)",()=>{const o=new OI(makeStorage(),"n2");o.decay=1;o.learn(["hello"]);o.learn(["world","is","nice"]);return o.respond(["hello"])==="world is nice";}],
- ["থ্যালামাস: অজানা ইনপুটে গেট বেশি",()=>{const o=new OI(makeStorage(),"n3");o.learn(["a"]);return o.thalamus(["zzz"],1).gate>o.thalamus(["a"],1).gate;}],
- ["প্রেডিক্টিভ কোডিং: প্রত্যাশিত=০, অপ্রত্যাশিত=১",()=>{const o=new OI(makeStorage(),"n4");o.decay=1;o.learn(["a"]);o.learn(["b"]);o.learn(["a"]);return o.predictionError(["b"])===0&&o.predictionError(["zzz"])===1;}],
- ["STDP: আগের→পরের সংযোগ বাড়ে, উল্টোটা কমে",()=>{const o=new OI(makeStorage(),"n5");o.decay=1;o.learn(["a"]);o.learn(["b"]);o.learn(["a"]);o.stdp(new Map([["a",[2]],["b",[5]]]));return o.bridges.get("a").get("b")>1&&o.bridges.get("b").get("a")<1;}],
- ["শেয়ার্ড ব্রেন: মার্জে সর্বোচ্চ মান, দুবার মেলালে বাড়ে না",()=>{const a=new OI(makeStorage(),"n6");a.decay=1;a.learn(["x"]);a.learn(["y"]);const j=a.serialize();const b=new OI(makeStorage(),"n7");b.mergeFrom(j);b.mergeFrom(j);return b.bridges.get("x").get("y")===1&&b.vocab.has("y");}]
-,
-["জিনোম: বাংলা সহ ব্রেন কোড হয়ে অন্য ব্রেনে যায়",()=>{const a=new OI(makeStorage(),"g1");a.decay=1;a.learn(["আমি"]);a.learn(["ভালো","আছি"]);const b=new OI(makeStorage(),"g2");const ok=b.absorb("https://x.test/p#g="+a.genome());return ok&&b.respond(["আমি"])==="ভালো আছি"&&b.absorb("বাজে কোড")===false;}]
-];
-function runTests(){
-  $("dbg").innerHTML="";let p=0;
-  TESTS.forEach(([n,f])=>{let ok=false,err="";try{ok=!!f();}catch(e){err=" → "+e.message;}
-    dlog(ok?"pass":"fail",(ok?"✔ ":"✘ ")+n+err);if(ok)p++;});
-  dlog(p===TESTS.length?"pass":"fail",`ফলাফল: ${p}/${TESTS.length} পাস`);
-  return p===TESTS.length;
+
+// --- UI CONTROLLER & RUNNER ---
+const brain = new OrganicBrain();
+const termEl = document.getElementById("term");
+const dbgEl = document.getElementById("dbg");
+
+function logTerminal(prefix, msg, colorClass = "c-brain") {
+  const line = document.createElement("div");
+  line.className = `log-line ${colorClass}`;
+  line.innerHTML = `[${prefix}]: ${msg}`;
+  termEl.appendChild(line);
+  termEl.scrollTop = termEl.scrollHeight;
 }
-function inspect(){
-  $("dbg").innerHTML="";
-  dlog("c-sys",`স্টোরেজ: ${store.persistent?"localStorage (স্থায়ী)":"শুধু মেমোরি (সেশন)"}`);
-  dlog("c-brain",`ধারণা ${brain.vocab.size}, সাঁকো ${brain.bridges.size}, সিনট্যাক্স ${brain.synapses()}`);
-  [...brain.bridges].slice(0,10).forEach(([k,v])=>dlog("c-brain",k+" → "+[...v].sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0]+"("+x[1]+")").join(", ")));
+
+function updateMeters() {
+  document.getElementById("nodes").textContent = brain.nodes.size;
+  document.getElementById("syn").textContent = brain.synapses.size;
+  document.getElementById("wm").textContent = brain.workingMemory.join(" ") || "খালি";
+  
+  document.getElementById("brainM").style.width = Math.min(100, brain.nodes.size * 5) + "%";
+  document.getElementById("earM").style.width = Math.round(brain.NA * 100) + "%";
+  document.getElementById("eyeM").style.width = Math.round(brain.ACh * 100) + "%";
+  
+  document.getElementById("mods").textContent = 
+    `DA ${brain.DA.toFixed(1)} • NA ${brain.NA.toFixed(1)} • ACh ${brain.ACh.toFixed(1)} • 5-HT ${brain.HT.toFixed(1)} • শক্তি ${Math.round(brain.energy * 100)}% • বর্জ্য ${Math.round(brain.waste * 100)}%`;
 }
-// ---------- Shared brain (সব ডিভাইসে একই ব্রেন; db না থাকলে শুধু লোকাল) ----------
-let SYNC=null,syncTm=null;
-async function initShared(){
-  try{
-    if(!window.claude||!window.claude.use)return;
-    const db=await window.claude.use("db");if(!db)return;
-    const ref=db.doc("brain/main");
-    const pull=snap=>{if(snap.exists){const d=snap.data();if(d&&d.data&&brain.mergeFrom(d.data))meters();}};
-    ref.onSnapshot(pull,e=>dlog("fail","sync পড়া ব্যর্থ: "+e.code));
-    SYNC=async()=>{const s=await ref.get();if(s.exists&&s.data().data)brain.mergeFrom(s.data().data);await ref.set({data:brain.serialize(),ts:Date.now()});};
-    brain.onSave=()=>{clearTimeout(syncTm);syncTm=setTimeout(()=>SYNC().catch(e=>dlog("fail","sync লেখা ব্যর্থ: "+(e.code||e.message))),1500);};
-    $("store").textContent="শেয়ার্ড ব্রেন ✔ সব ডিভাইস";
-  }catch(e){dlog("fail","sync: "+(e.message||e.code));}
+
+// Send Interaction
+function handleSend() {
+  const inputEl = document.getElementById("userInput");
+  const val = inputEl.value.trim();
+  if (!val) return;
+
+  logTerminal("👂 কান শুনল", `"${val}"`, "c-ear");
+  logTerminal("🛑 অবদমন", "শোনা শব্দ সরাসরি রিফ্লেক্স মুখে যাওয়া রোধ করা হলো", "c-inh");
+  
+  const res = brain.processInput(val);
+  logTerminal("🚪 থ্যালামাস", `গেট ${res.gate} • ভুল-অনুমান ${res.novelty}`, "c-eye");
+  
+  if (res.spoken) {
+    document.getElementById("voiceVal").textContent = "কথা বলছে";
+    document.getElementById("voiceM").style.width = "100%";
+    logTerminal("🗣️ কণ্ঠ", `"${res.spoken}"`, "c-voice");
+    setTimeout(() => {
+      document.getElementById("voiceVal").textContent = "বিশ্রামে";
+      document.getElementById("voiceM").style.width = "0%";
+    }, 600);
+  } else {
+    logTerminal("🧠 মস্তিষ্ক", "কোনো সক্রিয় স্পাইক নেই (চিন্তা প্রক্রিয়াধীন)", "c-brain");
+  }
+
+  inputEl.value = "";
+  updateMeters();
 }
-// ---------- UI ----------
-const store=makeStorage();const brain=new OI(store,KEY);
-function log(cls,msg){const t=$("term");const r=document.createElement("div");r.className=cls;r.textContent=msg;t.appendChild(r);t.scrollTop=t.scrollHeight;}
-function meters(){$("nodes").textContent=brain.vocab.size;$("syn").textContent=brain.synapses();$("semN").textContent=[...brain.sem.values()].reduce((n,m)=>n+m.size,0);$("wm").textContent=brain.wm.join(" ")||"—";$("brainM").style.width=Math.min(100,brain.vocab.size*5)+"%";}
-function cycle(){
-  const inp=$("in"),raw=inp.value.trim();if(!raw)return;inp.value="";
-  try{
-    const e=brain.ear(raw);$("earVal").textContent=e.energy+"%";$("earM").style.width=e.energy+"%";
-    log("c-ear",`[👂 কান শুনল]: "${raw}" (শক্তি ${e.energy}%)`);
-    const y=brain.eye(e.tokens,e.energy);$("eyeVal").textContent=y.level>50?"উচ্চ তীক্ষ্ণ":"শান্ত";$("eyeM").style.width=y.level+"%";
-    log("c-eye",`[👁️ চোখ]: সংবেদনশীলতা ${y.mult.toFixed(1)}x`);
-    log("c-inh","[🛑 অবদমন]: শোনা শব্দ সরাসরি মুখে যাওয়া রোধ করা হলো");
-    brain.decay=1-(+$("fgt").value)/100;const temp=+$("temp").value;
-    const pe=brain.predictionError(e.tokens),th=brain.thalamus(e.tokens,y.mult);
-    log("c-eye",`[🚪 থ্যালামাস]: গেট ${th.gate.toFixed(2)} • [🔮 প্রেডিকশন]: ভুল-অনুমান ${pe.toFixed(2)}`);
-    const reply=brain.respond(e.tokens,y.mult,temp,Math.random,th.gate);
-    const sp=[...(brain.lastSim.spikes)].map(([w,t])=>w+"@"+t[0]).join(" ");
-    log("c-brain",sp?`[⚡ ওয়ার্নিক→স্পাইক]: ${sp}`:"[⚡ কোনো নিউরন স্পাইক করেনি]");const sal=y.mult*(1+th.surprise)*(1+th.emo)*(.5+pe);
-    brain.learn(e.tokens,sal);brain.attend(e.tokens);const out=reply?reply.split(" "):[];brain.lastRun={inp:e.tokens,out};if(out.length)brain.reconsolidate(e.tokens,out);meters();
-    dlog("c-sys",`salience=${sal.toFixed(2)} (অবাক=${th.surprise.toFixed(2)} ভুল-অনুমান=${pe.toFixed(2)})`);
-    dlog("c-sys",`cycle: tokens=${e.tokens.length} mult=${y.mult} reply=${reply===null?"null":"ok"} temp=${temp} মুছেছে=${brain.pruned}`);
-    if(reply){$("voiceVal").textContent="অনুরণিত";$("voiceM").style.width="100%";log("c-voice",`[🗣️ কণ্ঠ]: "${reply}"`);
-      setTimeout(()=>{$("voiceVal").textContent="বিশ্রামে";$("voiceM").style.width="0%";},1200);}
-    else{$("voiceVal").textContent="নীরব";$("voiceM").style.width="15%";log("c-brain","[🧠 মস্তিষ্ক]: তথ্য সংহত হলো (এখনো উত্তর গঠিত হয়নি)");
-      setTimeout(()=>{$("voiceM").style.width="0%";},800);}
-  }catch(err){dlog("fail","cycle ব্যর্থ: "+err.message);log("c-inh","[ত্রুটি]: "+err.message);}
-}
-function tab(d){$("term").classList.toggle("hide",d);$("dbg").classList.toggle("hide",!d);$("dbgBtns").style.display=d?"flex":"none";
-  $("tabT").className=d?"ghost":"on";$("tabD").className=d?"on":"ghost";}
-window.addEventListener("DOMContentLoaded",()=>{
-  meters();
-  $("send").addEventListener("click",cycle);$("temp").addEventListener("input",e=>$("tempV").textContent=e.target.value);$("fgt").addEventListener("input",e=>$("fgtV").textContent=e.target.value);
-  $("in").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();cycle();}});
-  $("reset").addEventListener("click",()=>{if(confirm("সব মেমোরি মুছে নবজাতক অবস্থায় ফিরবেন?")){brain.reset();meters();$("term").innerHTML="";log("c-sys","[সিস্টেম]: সব মেমোরি মুছে গেছে।");$("store").textContent="স্মৃতি শূন্য";}});
-  $("tabT").addEventListener("click",()=>tab(false));$("tabD").addEventListener("click",()=>{tab(true);});
-  $("runTests").addEventListener("click",runTests);
-  $("sleepBtn").addEventListener("click",()=>{const r=brain.sleep();meters();log("c-brain",`[😴 ঘুম]: ${r.moved}টি স্মৃতি নিওকর্টেক্সে গেল, ${r.pruned}টি দুর্বল সংযোগ ঝরে গেল`);});
-  $("up").addEventListener("click",()=>log("c-brain",brain.reward(1)?"[👍 ডোপামিন]: শেষ উত্তরের সংযোগ শক্তিশালী হলো":"[সিস্টেম]: পুরস্কার দেওয়ার মতো উত্তর নেই"));
-  $("down").addEventListener("click",()=>log("c-brain",brain.reward(-1)?"[👎]: শেষ উত্তরের সংযোগ দুর্বল হলো":"[সিস্টেম]: শাস্তি দেওয়ার মতো উত্তর নেই"));$("inspect").addEventListener("click",inspect);$("clearDbg").addEventListener("click",()=>$("dbg").innerHTML="");
-  if(!store.persistent)$("store").textContent="সেশন-মোড (স্থায়ী স্টোরেজ নেই)";
-  log("c-sys",brain.vocab.size?`[হিপোক্যাম্পাস]: ${brain.vocab.size}টি ধারণা, ${brain.synapses()}টি সিন্যাপস ফিরে এসেছে।`:"[হিপোক্যাম্পাস]: মস্তিষ্ক নবজাতক। কিছু লিখে অভিজ্ঞতা তৈরি করুন।");
-  initShared();
-  try{if(location.hash.indexOf("#g=")===0&&brain.absorb(location.hash)){meters();log("c-brain","[🧬]: লিংক থেকে জিনোম মেলানো হলো");}}catch(e){}
-  $("gMake").addEventListener("click",async()=>{const g=brain.genome();$("genome").value=g;try{await navigator.clipboard.writeText(g);log("c-sys",`[🧬 জিনোম]: ${g.length} অক্ষর, কপি হয়েছে`);}catch(e){log("c-sys",`[🧬 জিনোম]: ${g.length} অক্ষর তৈরি; বক্স থেকে কপি করুন`);}});
-  $("gLink").addEventListener("click",()=>{$("genome").value=location.href.split("#")[0]+"#g="+brain.genome();});
-  $("gMerge").addEventListener("click",()=>{const b=brain.vocab.size;const ok=brain.absorb($("genome").value);meters();log("c-brain",ok?`[🧬 মিলন]: সফল, ধারণা ${b}→${brain.vocab.size}`:"[🧬 মিলন]: জিনোম কোড ঠিক নেই");});
-  window.OI_DEBUG={brain,runTests,TESTS};
-  runTests();$("dbg").insertAdjacentHTML("afterbegin","");
+
+document.getElementById("sendBtn").addEventListener("click", handleSend);
+document.getElementById("userInput").addEventListener("keypress", (e) => { if (e.key === "Enter") handleSend(); });
+
+// Buttons
+document.getElementById("sleepBtn").addEventListener("click", () => {
+  const pruned = brain.sleep();
+  logTerminal("😴 ঘুম", `${pruned}টি দুর্বল সিন্যাপটিক সংযোগ ঝরে গেল (Pruned), মেটাবলিজম ১০০% পুনরুদ্ধার`, "c-brain");
+  updateMeters();
 });
+
+document.getElementById("rewardBtn").addEventListener("click", () => {
+  brain.reinforce(true);
+  logTerminal("👍 ডোপামিন", "সঠিক প্রতিক্রিয়ায় ডোপামিন বাড়ল ও সিন্যাপস শক্তিশালী হলো", "c-brain");
+  updateMeters();
+});
+
+document.getElementById("punishBtn").addEventListener("click", () => {
+  brain.reinforce(false);
+  logTerminal("👎 অবদমন", "ভুল উত্তরের সংযোগ হ্রাস করা হলো", "c-inh");
+  updateMeters();
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  brain.nodes.clear();
+  brain.synapses.clear();
+  brain.syntaxChains.clear();
+  brain.qaAssociations.clear();
+  brain.workingMemory = [];
+  termEl.innerHTML = "";
+  logTerminal("হিপোক্যাম্পাস", "মস্তিষ্ক নবজাতক। নতুন অভিজ্ঞতা গ্রহণ করতে প্রস্তুত।", "c-sys");
+  updateMeters();
+});
+
+// Tab Switch
+document.getElementById("tabTerm").addEventListener("click", () => {
+  document.getElementById("tabTerm").classList.add("on");
+  document.getElementById("tabDbg").classList.remove("on");
+  termEl.classList.remove("hide");
+  dbgEl.classList.add("hide");
+});
+document.getElementById("tabDbg").addEventListener("click", () => {
+  document.getElementById("tabDbg").classList.add("on");
+  document.getElementById("tabTerm").classList.remove("on");
+  dbgEl.classList.remove("hide");
+  termEl.classList.add("hide");
+  runLiveTests();
+});
+
+// Automated Live Test Suite
+function runLiveTests() {
+  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>টেস্ট স্যুট চলছে...</div>";
+  const tests = [
+    { name: "টোকেনাইজ: বিরামচিহ্ন মুছে যায় ও লোয়ারকেস হয়", fn: () => brain.tokenize("Hello, World?!").join(" ") === "hello world" },
+    { name: "ইনহিবিশন: ফাঁকা ইনপুটে কোনো স্পাইক বা আউটপুট আসে না", fn: () => brain.processInput("") === null },
+    { name: "সিনট্যাক্স ট্রানজিশন: নতুন শব্দে নোড ও চেইন বৃদ্ধি পায়", fn: () => {
+        brain.processInput("tumi kemon aso");
+        return brain.nodes.has("tumi") && brain.synapses.has("tumi->kemon");
+      }
+    },
+    { name: "কনটেক্সট সেপারেশন: ভিন্ন টপিক আসলে আগের ওভারল্যাপ মুছে ফেলা", fn: () => {
+        brain.processInput("apple banana");
+        brain.processInput("computer keyboard monitor");
+        return !brain.workingMemory.includes("apple");
+      }
+    },
+    { name: "ডোপামিন রিইনফোর্সমেন্ট: পজিটিভ ফিডব্যাকে DA বাড়ে", fn: () => {
+        const daBefore = brain.DA;
+        brain.reinforce(true);
+        return brain.DA >= daBefore;
+      }
+    },
+    { name: "স্লিপ ও সিন্যাপটিক প্রুনিং: দুর্বল সংযোগ ঝরে যায়", fn: () => {
+        brain.synapses.set("weak->node", 0.05);
+        brain.sleep();
+        return !brain.synapses.has("weak->node");
+      }
+    }
+  ];
+
+  dbgEl.innerHTML = "";
+  tests.forEach(t => {
+    const passed = t.fn();
+    const row = document.createElement("div");
+    row.className = passed ? "pass" : "fail";
+    row.textContent = `${passed ? "✔" : "✖"} ${t.name}`;
+    dbgEl.appendChild(row);
+  });
+}
+
+// Initial state
+logTerminal("হিপোক্যাম্পাস", "মস্তিষ্ক প্রস্তুত। আপনি কথা বললে এটি শিখবে।", "c-brain");
+updateMeters();
 </script>
 </body>
 </html>
