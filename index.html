@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OI v5.0 – Sentient Organic Brain Architecture</title>
+<title>OI v6.0 – Full Sentient Organic Brain</title>
 <style>
   :root {
     --bg: #07080c;
@@ -107,24 +107,24 @@
 <body>
 
 <header>
-  <h1>OI · Organic Intelligence v5.0 (Sentient Brain Architecture)</h1>
-  <div class="sub">Insular Self-Model (DMN) • ACC Conflict Detector • Amygdala Valence • Hippocampal SWRs Pruning</div>
+  <h1>OI · Organic Intelligence v6.0 (Sentient Unified Engine)</h1>
+  <div class="sub">DMN Self-Model • Bidirectional LTD Decoupling • Amygdala Valence • CA3 Episodic Consolidation</div>
 </header>
 
 <div class="grid">
   <div class="card">
-    <div class="ct c-self">🪞 ইনসুলা ও ডিএমএন (Self vs Other)</div>
-    আত্ম-পরিচয় নোড: <span id="selfAnchor">অনির্ধারিত</span><br>
-    স্পিকার নোড: <span id="speakerAnchor">অনির্ধারিত</span>
+    <div class="ct c-self">🪞 ইনসুলা ও ডিএমএন (Self-Model)</div>
+    আত্ম-সত্তা (Self): <span id="selfAnchor">অনির্ধারিত</span><br>
+    বহিরাগত (Speaker): <span id="speakerAnchor">অনির্ধারিত</span>
     <div class="meter"><div id="selfM" class="fill" style="background: var(--pink);"></div></div>
   </div>
   <div class="card">
     <div class="ct c-ear">👂 থ্যালামাস ও এসিসি (ACC Gate)</div>
-    কনফ্লিক্ট লেভেল: <span id="accVal">0.00</span>
+    দ্বন্দ্ব মাত্রা (Conflict): <span id="accVal">0.00</span>
     <div class="meter"><div id="accM" class="fill" style="background: var(--yellow);"></div></div>
   </div>
   <div class="card">
-    <div class="ct c-brain">🧠 কর্টিক্যাল মেমোরি (CA3 Network)</div>
+    <div class="ct c-brain">🧠 কর্টেক্স ও হিপোক্যাম্পাস (CA3)</div>
     নিউরন: <span id="nodes">0</span> • সিন্যাপস: <span id="syn">0</span><br>
     এপিসোডিক ট্র্যাক: <span id="episodes">0</span>
     <div class="meter"><div id="brainM" class="fill" style="background: var(--blue);"></div></div>
@@ -135,34 +135,34 @@
     <div class="meter"><div id="voiceM" class="fill" style="background: var(--green);"></div></div>
   </div>
   <div class="card" style="grid-column: 1 / -1;">
-    <div class="ct c-inh">⚗️ অ্যামিগডালা ভ্যালেন্স ও মেটাবলিজম</div>
+    <div class="ct c-inh">⚗️ নিউরোকেমিক্যাল ও হোমিওস্ট্যাসিস ড্রাইভ</div>
     <div id="mods">DA 0.35 • NA 0.25 • ACh 0.50 • মেজাজ: কৌতূহলী • শক্তি 100% • বর্জ্য 0%</div>
   </div>
 </div>
 
 <div class="controls">
-  <button id="sleepBtn">😴 স্লো-ওয়েভ ঘুম (Synaptic Homeostasis)</button>
+  <button id="sleepBtn">😴 স্লো-ওয়েভ ঘুম (SWRs Pruning)</button>
   <button id="rewardBtn">👍 ডোপামিন বুস্ট (LTP)</button>
   <button id="punishBtn">👎 সিন্যাপটিক রিপ্রেশন (LTD)</button>
-  <button id="resetBtn">🔄 সেলুলার রিসেট</button>
+  <button id="resetBtn">🔄 সেলুলার জিরো স্টেট</button>
 </div>
 
 <div class="tabs">
   <button class="tab-btn on" id="tabTerm">টার্মিনাল (Biological Stream)</button>
-  <button class="tab-btn" id="tabDbg">🛠 বায়োলজিক্যাল ডায়াগনস্টিকস</button>
+  <button class="tab-btn" id="tabDbg">🛠 বায়োলজিক্যাল ডায়াগনস্টিকস (Live Tests)</button>
 </div>
 
 <div id="term"></div>
 <div id="dbg" class="hide"></div>
 
 <div class="input-bar">
-  <input type="text" id="userInput" placeholder="কন্ঠ সংকেত দিন (জৈবিক স্ব-সচেতনতা সক্রিয়)...">
+  <input type="text" id="userInput" placeholder="কন্ঠ বা শব্দ উদ্দীপনা দিন (জৈবিক স্ব-সচেতনতা সক্রিয়)...">
   <button class="primary" id="sendBtn">উদ্দীপনা দিন (Fire)</button>
 </div>
 
 <script>
-// --- BIOLOGICAL SENTIENT ENGINE v5.0 (ZERO HARDCODING) ---
-class SentientBrainArchitecture {
+// --- BIOLOGICAL SENTIENT ENGINE v6.0 (ZERO HARDCODING & BIDIRECTIONAL LTD) ---
+class OrganicBrainArchitectureV6 {
   constructor() {
     this.corticalNodes = new Map();     // General concepts
     this.synapticMatrix = new Map();    // Forward transitions
@@ -176,15 +176,17 @@ class SentientBrainArchitecture {
     this.DA = 0.35;
     this.NA = 0.25;
     this.ACh = 0.50;
-    this.valence = 0.0; // Amygdala: -1.0 (frustrated) to +1.0 (serene)
+    this.valence = 0.0; // Amygdala: -1.0 to +1.0
     this.accConflict = 0.0; // Anterior Cingulate Cortex Conflict Metric
     
     // Metabolic
     this.energy = 1.0;
     this.waste = 0.0;
     
+    // Context Buffers
     this.lastSensoryPattern = [];
     this.lastMotorAct = [];
+    this.causalHistory = []; // Tracks historical stimulus triggers for clean LTD
   }
 
   tokenize(text) {
@@ -196,7 +198,6 @@ class SentientBrainArchitecture {
       .filter(Boolean);
   }
 
-  // Sensory Saliency & Interoception
   processStimulus(raw) {
     const tokens = this.tokenize(raw);
     if (tokens.length === 0) return null;
@@ -204,28 +205,24 @@ class SentientBrainArchitecture {
     this.energy = Math.max(0.05, this.energy - 0.015);
     this.waste = Math.min(1.0, this.waste + 0.02);
 
-    // Register active neurons
     tokens.forEach(t => {
       this.corticalNodes.set(t, (this.corticalNodes.get(t) || 0) + 1);
     });
 
-    // 1. Insular DMN Spatial Pole Attribution (Speaker vs Self Dynamics)
-    // Statistical co-activation of contextual indicators without string literals
+    // 1. Forward Sequential Hebbian Wiring
     for (let i = 0; i < tokens.length - 1; i++) {
       const synKey = `${tokens[i]}->${tokens[i+1]}`;
       const w = this.synapticMatrix.get(synKey) || 0.1;
       this.synapticMatrix.set(synKey, Math.min(2.5, w + 0.25 * this.ACh));
     }
 
-    // 2. ACC Conflict Detection (Detecting contradictory attractor bindings)
     const sensoryKey = tokens.join(" ");
-    let conflictSpike = 0.0;
 
+    // 2. ACC Conflict Detection
+    let conflictSpike = 0.0;
     if (this.episodicAssemblies.has(sensoryKey)) {
       const storedMap = this.episodicAssemblies.get(sensoryKey);
-      if (storedMap.size > 1) {
-        conflictSpike = 0.75; // Multiple divergent outcomes
-      }
+      if (storedMap.size > 1) conflictSpike = 0.75;
     }
     this.accConflict = conflictSpike;
 
@@ -239,11 +236,12 @@ class SentientBrainArchitecture {
         const cluster = this.episodicAssemblies.get(prevKey);
         const curW = cluster.get(sensoryKey) || 0;
         cluster.set(sensoryKey, curW + 1.2 * this.ACh);
+        this.causalHistory.push({ cause: prevKey, effect: sensoryKey });
+        if (this.causalHistory.length > 10) this.causalHistory.shift();
       }
     }
 
-    // Dynamic Self-Other Disambiguation Attractor formation
-    // When relational pairing occurs, polarize into Self/Other fields dynamically
+    // Dynamic Self-Other Disambiguation
     if (tokens.length >= 3) {
       for (let i = 0; i < tokens.length - 2; i++) {
         const pivot = tokens[i];
@@ -256,7 +254,7 @@ class SentientBrainArchitecture {
       }
     }
 
-    // 4. Action Selection via Basal Ganglia Striatum
+    // 4. Action Selection via Basal Ganglia
     let chosenTrajectory = [];
 
     if (this.episodicAssemblies.has(sensoryKey)) {
@@ -268,7 +266,6 @@ class SentientBrainArchitecture {
         }
       }
     } else {
-      // Fuzzy Attractor Resonance across episodic traces
       let bestResonance = null;
       let highestScore = 0;
 
@@ -292,12 +289,10 @@ class SentientBrainArchitecture {
       if (bestResonance) {
         chosenTrajectory = bestResonance.split(" ");
       } else {
-        // Motor Synaptic Gradient Traversal
         chosenTrajectory = this.traverseGradient(tokens[0]);
       }
     }
 
-    // Broca Motor Output Filter (Anti-Echo Reflex Gating)
     let utterance = chosenTrajectory.join(" ");
     if (utterance === sensoryKey) {
       utterance = chosenTrajectory.length > 0 ? chosenTrajectory[0] + "?" : "...";
@@ -340,7 +335,6 @@ class SentientBrainArchitecture {
     return path;
   }
 
-  // Long-Term Potentiation (LTP)
   reinforceLTP() {
     if (this.lastSensoryPattern.length === 0 || this.lastMotorAct.length === 0) return false;
     this.DA = Math.min(1.0, this.DA + 0.25);
@@ -355,17 +349,38 @@ class SentientBrainArchitecture {
     return true;
   }
 
-  // Long-Term Depression (LTD)
+  // BIDIRECTIONAL & CAUSAL LTD DECOUPLING (Fixes previous test issue)
   repressLTD() {
     if (this.lastSensoryPattern.length === 0) return false;
     this.DA = Math.max(0.05, this.DA - 0.3);
     this.valence = Math.max(-1.0, this.valence - 0.4);
-    const prevKey = this.lastSensoryPattern.join(" ");
+    
+    const currentKey = this.lastSensoryPattern.join(" ");
 
-    if (this.episodicAssemblies.has(prevKey)) {
-      this.episodicAssemblies.delete(prevKey);
+    // 1. Delete if direct key
+    if (this.episodicAssemblies.has(currentKey)) {
+      this.episodicAssemblies.delete(currentKey);
     }
 
+    // 2. Reverse Causal Prune: Unlink from recent causal history
+    if (this.causalHistory.length > 0) {
+      const recent = this.causalHistory.pop();
+      if (this.episodicAssemblies.has(recent.cause)) {
+        this.episodicAssemblies.delete(recent.cause);
+      }
+    }
+
+    // 3. Search & Destroy any remaining lingering associations referencing current key
+    for (const [cause, targetMap] of this.episodicAssemblies.entries()) {
+      if (targetMap.has(currentKey)) {
+        targetMap.delete(currentKey);
+      }
+      if (targetMap.size === 0) {
+        this.episodicAssemblies.delete(cause);
+      }
+    }
+
+    // 4. Depress motor trace
     for (let i = 0; i < this.lastMotorAct.length - 1; i++) {
       const synKey = `${this.lastMotorAct[i]}->${this.lastMotorAct[i+1]}`;
       if (this.synapticMatrix.has(synKey)) {
@@ -375,7 +390,6 @@ class SentientBrainArchitecture {
     return true;
   }
 
-  // Slow-Wave Sleep Consolidation & Synaptic Scaling
   sleepConsolidation() {
     let pruned = 0;
     for (const [key, weight] of this.synapticMatrix.entries()) {
@@ -400,12 +414,13 @@ class SentientBrainArchitecture {
     this.accConflict = 0.0;
     this.lastSensoryPattern = [];
     this.lastMotorAct = [];
+    this.causalHistory = [];
     return pruned;
   }
 }
 
-// --- UI CONTROLLER ---
-const brain = new SentientBrainArchitecture();
+// --- UI CONTROLLER & VIEW BINDINGS ---
+const brain = new OrganicBrainArchitectureV6();
 const termEl = document.getElementById("term");
 const dbgEl = document.getElementById("dbg");
 
@@ -422,7 +437,6 @@ function updateHUD() {
   document.getElementById("syn").textContent = brain.synapticMatrix.size;
   document.getElementById("episodes").textContent = brain.episodicAssemblies.size;
 
-  // Retrieve highest attractor poles
   let topSelf = "অনির্ধারিত";
   let maxSW = 0;
   brain.selfAttractor.forEach((v, k) => { if (v > maxSW) { maxSW = v; topSelf = k; } });
