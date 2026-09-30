@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OI v7.0 – Pure Organic Brain Simulation</title>
+<title>OI v8.0 – Pure Sentient Organic Engine</title>
 <style>
   :root {
     --bg: #07080c;
@@ -107,8 +107,8 @@
 <body>
 
 <header>
-  <h1>OI · Organic Intelligence v7.0 (Efference Gated Brain)</h1>
-  <div class="sub">Efference Copy • Tonic GABA Silence • Attractor Agency • Sparse CA3 Assemblies</div>
+  <h1>OI · Organic Intelligence v8.0 (Isolated Clean Engine)</h1>
+  <div class="sub">Efference Feedback Filter • Isolated Test Sandboxing • CA3 Episodic Assembly • Anti-Echo Gating</div>
 </header>
 
 <div class="grid">
@@ -156,38 +156,33 @@
 <div id="dbg" class="hide"></div>
 
 <div class="input-bar">
-  <input type="text" id="userInput" placeholder="কন্ঠ বা শব্দ উদ্দীপনা দিন (ইকো-মুক্ত জৈবিক ব্রেইন)...">
+  <input type="text" id="userInput" placeholder="কন্ঠ বা শব্দ উদ্দীপনা দিন...">
   <button class="primary" id="sendBtn">উদ্দীপনা দিন (Fire)</button>
 </div>
 
 <script>
-// --- BIOLOGICAL SENTIENT ENGINE v7.0 ---
-class OrganicBrainArchitectureV7 {
+class OrganicBrainArchitectureV8 {
   constructor() {
     this.corticalNodes = new Map();
     this.synapticMatrix = new Map();
     this.episodicAssemblies = new Map();
     
-    // Attractor Agency Tracking
     this.selfAttractor = new Map();
     this.otherAttractor = new Map();
     
-    // Neuromodulators
     this.DA = 0.35;
     this.NA = 0.25;
     this.ACh = 0.50;
     this.valence = 0.0;
     this.predictionError = 0.0;
     
-    // Cellular Homeostasis
     this.energy = 1.0;
     this.waste = 0.0;
     
-    // Motor & Efference Buffers
     this.lastSensoryPattern = [];
     this.lastMotorAct = [];
     this.causalHistory = [];
-    this.efferenceCopy = null; // Internal copy of self-action
+    this.efferenceCopy = null;
   }
 
   tokenize(text) {
@@ -202,11 +197,12 @@ class OrganicBrainArchitectureV7 {
   processStimulus(raw) {
     const tokens = this.tokenize(raw);
     if (tokens.length === 0) return null;
+    const sensoryKey = tokens.join(" ");
 
-    // Check Efference Copy: If this sensory input matches own immediately voiced thought, ignore self-stimulation
-    if (this.efferenceCopy && this.efferenceCopy === tokens.join(" ")) {
+    // Efference cancellation
+    if (this.efferenceCopy && this.efferenceCopy === sensoryKey) {
       this.efferenceCopy = null;
-      return { conflict: "0.00", utterance: "..." };
+      return { conflict: "0.00", utterance: "...", isEfference: true };
     }
     this.efferenceCopy = null;
 
@@ -217,16 +213,12 @@ class OrganicBrainArchitectureV7 {
       this.corticalNodes.set(t, (this.corticalNodes.get(t) || 0) + 1);
     });
 
-    // 1. Forward Sequential Hebbian Wiring
     for (let i = 0; i < tokens.length - 1; i++) {
       const synKey = `${tokens[i]}->${tokens[i+1]}`;
       const w = this.synapticMatrix.get(synKey) || 0.1;
       this.synapticMatrix.set(synKey, Math.min(2.5, w + 0.25 * this.ACh));
     }
 
-    const sensoryKey = tokens.join(" ");
-
-    // 2. Thalamic Novelty & Conflict Check
     let conflict = 0.0;
     if (this.episodicAssemblies.has(sensoryKey)) {
       const storedMap = this.episodicAssemblies.get(sensoryKey);
@@ -234,7 +226,6 @@ class OrganicBrainArchitectureV7 {
     }
     this.predictionError = conflict;
 
-    // 3. CA3 Episodic Consolidation
     if (this.lastSensoryPattern.length > 0) {
       const prevKey = this.lastSensoryPattern.join(" ");
       if (prevKey !== sensoryKey) {
@@ -249,18 +240,13 @@ class OrganicBrainArchitectureV7 {
       }
     }
 
-    // Dynamic Relational Agency (Statistical Relational Binding without Hardcoded Index)
     if (tokens.length >= 4) {
-      const p1 = tokens[0];
-      const p2 = tokens[tokens.length - 2];
       const v1 = tokens[1];
       const v2 = tokens[tokens.length - 1];
-      
       this.otherAttractor.set(v1, (this.otherAttractor.get(v1) || 0) + 1);
       this.selfAttractor.set(v2, (this.selfAttractor.get(v2) || 0) + 1);
     }
 
-    // 4. Action Selection via Basal Ganglia Striatum
     let chosenTrajectory = [];
 
     if (this.episodicAssemblies.has(sensoryKey)) {
@@ -283,7 +269,7 @@ class OrganicBrainArchitectureV7 {
         });
 
         const score = shared / Math.max(tokens.length, storedTokens.length);
-        if (score > highestScore && score >= 0.42) {
+        if (score > highestScore && score >= 0.40) {
           highestScore = score;
           let subMax = -1;
           for (const [resp, w] of effectMap.entries()) {
@@ -295,32 +281,30 @@ class OrganicBrainArchitectureV7 {
       if (bestResonance) {
         chosenTrajectory = bestResonance.split(" ");
       } else {
-        // Pure threshold check: If no confident synaptic potential, remain silent
         chosenTrajectory = this.traverseGradientThreshold(tokens[0]);
       }
     }
 
     let utterance = chosenTrajectory.join(" ");
-    
-    // Natural Organic Inhibition: If identical echo or below activation threshold, do NOT echo mechanical question marks
+
     if (utterance === sensoryKey || chosenTrajectory.length === 0) {
-      utterance = "..."; // Pure biological silence (GABA inhibition)
+      utterance = "...";
       chosenTrajectory = [];
     }
 
     this.lastSensoryPattern = tokens;
     this.lastMotorAct = chosenTrajectory;
     if (chosenTrajectory.length > 0) {
-      this.efferenceCopy = utterance; // Generate internal efference copy
+      this.efferenceCopy = utterance;
     }
 
     return {
       conflict: this.predictionError.toFixed(2),
-      utterance: utterance
+      utterance: utterance,
+      isEfference: false
     };
   }
 
-  // Traverses forward synaptic paths only if potential exceeds confidence threshold
   traverseGradientThreshold(seed) {
     if (!seed) return [];
     let curr = seed;
@@ -341,8 +325,7 @@ class OrganicBrainArchitectureV7 {
         }
       }
 
-      // High threshold to eliminate parrot babbling
-      if (!nextNode || maxW < 0.45) break;
+      if (!nextNode || maxW < 0.50) break;
       path.push(nextNode);
       visited.add(nextNode);
       curr = nextNode;
@@ -431,8 +414,8 @@ class OrganicBrainArchitectureV7 {
   }
 }
 
-// --- UI CONTROLLER & VIEW BINDINGS ---
-const brain = new OrganicBrainArchitectureV7();
+// Controller
+const brain = new OrganicBrainArchitectureV8();
 const termEl = document.getElementById("term");
 const dbgEl = document.getElementById("dbg");
 
@@ -479,11 +462,10 @@ function triggerStimulus() {
   logStream("🛑 টনিক ইনহিবিশন", "সরাসরি রিফ্লেক্স প্রতিধ্বনি অবদমিত", "c-inh");
 
   const res = brain.processStimulus(val);
-  if (res.conflict > 0.5) {
-    logStream("⚡ থ্যালামাস দ্বন্দ্ব", `দ্বন্দ্ব মাত্রা: ${res.conflict} (পুনর্বিন্যাস কার্যকর)`, "c-inh");
-  }
 
-  if (res.utterance && res.utterance !== "...") {
+  if (res.isEfference) {
+    logStream("🪞 ইফারেন্স কপি", "স্ব-উচ্চারিত শব্দ অভ্যন্তরীণ ফিডব্যাক ফিল্টারে ফিল্টার্ড", "c-self");
+  } else if (res.utterance && res.utterance !== "...") {
     document.getElementById("voiceVal").textContent = "মোটর সক্রিয়";
     document.getElementById("voiceM").style.width = "100%";
     logStream("🗣️ ব্রোকা আউটপুট", `"${res.utterance}"`, "c-voice");
@@ -504,7 +486,7 @@ document.getElementById("userInput").addEventListener("keypress", (e) => { if (e
 
 document.getElementById("sleepBtn").addEventListener("click", () => {
   const pruned = brain.sleepConsolidation();
-  logStream("😴 স্লো-ওয়েভ ঘুম", `${pruned}টি ক্ষণস্থায়ী সিন্যাপস প্রুনড হলো, সেলুলার বায়োলজিক্যাল হোমিওস্ট্যাসিস পুনরুদ্ধার`, "c-brain");
+  logStream("😴 স্লো-ওয়েভ ঘুম", `${pruned}টি ক্ষণস্থায়ী সিন্যাপস প্রুনড হলো, হোমিওস্ট্যাসিস পুনরুদ্ধার`, "c-brain");
   updateHUD();
 });
 
@@ -533,7 +515,6 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   updateHUD();
 });
 
-// Tab Handlers
 document.getElementById("tabTerm").addEventListener("click", () => {
   document.getElementById("tabTerm").classList.add("on");
   document.getElementById("tabDbg").classList.remove("on");
@@ -549,33 +530,47 @@ document.getElementById("tabDbg").addEventListener("click", () => {
   runTests();
 });
 
+// ISOLATED TEST SUITE: Tests run in a fresh, isolated brain sandbox
 function runTests() {
-  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>বায়োলজিক্যাল টেস্ট চলছে...</div>";
+  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>বায়োলজিক্যাল টেস্ট স্যান্ডবক্সে চলছে...</div>";
+  const testBrain = new OrganicBrainArchitectureV8();
+
   const suite = [
     { name: "জিরো হার্ডকোড: কোডে কোনো শব্দ বা রুলস ফিক্সড নেই", run: () => true },
-    { name: "জৈবিক নীরবতা: অপরিণত বা অজ্ঞাত উদ্দীপনায় প্যারট-ইকো বন্ধ", run: () => {
-        const out = brain.processStimulus("completely random unknown signal");
+    { 
+      name: "জৈবিক নীরবতা: অপরিণত বা অজ্ঞাত উদ্দীপনায় প্যারট-ইকো বন্ধ", 
+      run: () => {
+        const out = testBrain.processStimulus("completely random unknown signal");
         return out.utterance === "...";
       }
     },
-    { name: "ইফারেন্স কপি: স্ব-উচ্চারিত শব্দ অভ্যন্তরীণ ফিডব্যাক ফিল্টারে ব্লক হয়", run: () => {
-        brain.processStimulus("hello test stimulus");
-        brain.processStimulus("world response outcome");
-        const selfEchoAttempt = brain.processStimulus("world response outcome");
-        return selfEchoAttempt.utterance === "...";
+    { 
+      name: "ইফারেন্স কপি: স্ব-উচ্চারিত শব্দ অভ্যন্তরীণ ফিডব্যাক ফিল্টারে ব্লক হয়", 
+      run: () => {
+        testBrain.processStimulus("hello test stimulus");
+        testBrain.processStimulus("world response outcome");
+        // Trigger self response
+        const trigger = testBrain.processStimulus("hello test stimulus");
+        // Send back that exact voiced response
+        const echoCheck = testBrain.processStimulus(trigger.utterance);
+        return echoCheck.isEfference === true;
       }
     },
-    { name: "টার্গেটেড এলটিডি: নেগেটিভ সিগন্যালে ফল্টি পাথওয়ে বিচ্ছিন্ন হয়", run: () => {
-        brain.processStimulus("wrong prompt");
-        brain.processStimulus("wrong answare");
-        brain.repressLTD();
-        return !brain.episodicAssemblies.has("wrong prompt");
+    { 
+      name: "টার্গেটেড এলটিডি: নেগেটিভ সিগন্যালে ফল্টি পাথওয়ে বিচ্ছিন্ন হয়", 
+      run: () => {
+        testBrain.processStimulus("wrong prompt");
+        testBrain.processStimulus("wrong answare");
+        testBrain.repressLTD();
+        return !testBrain.episodicAssemblies.has("wrong prompt");
       }
     },
-    { name: "স্লিপ ও প্রুনিং: সাব-থ্রেশহোল্ড দুর্বল সিন্যাপস অপসারিত হয়", run: () => {
-        brain.synapticMatrix.set("ghost->decay", 0.05);
-        brain.sleepConsolidation();
-        return !brain.synapticMatrix.has("ghost->decay");
+    { 
+      name: "স্লিপ ও প্রুনিং: সাব-থ্রেশহোল্ড দুর্বল সিন্যাপস অপসারিত হয়", 
+      run: () => {
+        testBrain.synapticMatrix.set("ghost->decay", 0.05);
+        testBrain.sleepConsolidation();
+        return !testBrain.synapticMatrix.has("ghost->decay");
       }
     }
   ];
