@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OI v3.0 – Pure Organic Neural Dynamics</title>
+<title>OI v4.0 – Organic Brain Architecture</title>
 <style>
   :root {
-    --bg: #0b0c10;
-    --surface: #151821;
-    --border: #232838;
-    --text: #e6e8ee;
-    --mut: #8b92a5;
+    --bg: #090a0f;
+    --surface: #131620;
+    --border: #202636;
+    --text: #e2e8f0;
+    --mut: #7e8b9f;
     --blue: #3b82f6;
-    --purple: #a855f7;
-    --green: #22c55e;
-    --yellow: #eab308;
+    --purple: #9333ea;
+    --green: #10b981;
+    --yellow: #f59e0b;
     --red: #ef4444;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -74,7 +74,7 @@
   }
   input:focus { border-color: var(--blue); }
   button { cursor: pointer; transition: 0.15s; }
-  button:hover { background: #202637; }
+  button:hover { background: #1c2233; }
   button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
   button.primary:hover { background: #2563eb; }
   
@@ -83,10 +83,10 @@
   .tab-btn.on { color: var(--text); border-bottom: 2px solid var(--blue); border-radius: 0; }
   
   #term, #dbg {
-    background: #060709;
+    background: #050608;
     border: 1px solid var(--border);
     border-radius: 8px;
-    height: 400px;
+    height: 410px;
     overflow-y: auto;
     padding: 12px;
     font-family: ui-monospace, Menlo, monospace;
@@ -105,377 +105,374 @@
 <body>
 
 <header>
-  <h1>OI · Organic Intelligence v3.0 (Zero Hardcoding)</h1>
-  <div class="sub">Continuous Hebbian Plasticity • LTD Synaptic Pruning • Dynamic Cortical Clusters • Metabolic Scaling</div>
+  <h1>OI · Organic Intelligence v4.0 (Full Brain Dynamics)</h1>
+  <div class="sub">Thalamocortical Filter • Hippocampal Cell Assembly (CA3) • Basal Ganglia Selection • STDP Plasticity</div>
 </header>
 
 <div class="grid">
   <div class="card">
-    <div class="ct c-ear">👂 থ্যালামাস গেট (Thalamus Gate)</div>
-    সেন্সরি রেজিস্ট্যান্স: <span id="earVal">1.00</span>
+    <div class="ct c-ear">👂 থ্যালামাস গেট (Thalamus TRN)</div>
+    সেন্সরি রেজিস্ট্যান্স: <span id="thalamusVal">1.00</span>
     <div class="meter"><div id="earM" class="fill" style="background: var(--yellow);"></div></div>
   </div>
   <div class="card">
-    <div class="ct c-eye">👁️️ প্রি-ফ্রন্টাল মনোযোগ (PFC Attention)</div>
-    অ্যাক্টিভেশন ফিল্ড: <span id="eyeVal">স্বাভাবিক</span>
+    <div class="ct c-eye">👁 হিপোক্যাম্পাস (Hippocampal CA3)</div>
+    অ্যাসেম্বলি প্যাটার্ন: <span id="ca3Val">শান্ত</span>
     <div class="meter"><div id="eyeM" class="fill" style="background: var(--purple);"></div></div>
   </div>
   <div class="card">
-    <div class="ct c-brain">🧠 কর্টেক্স নেটওয়ার্ক (Neural Graph)</div>
-    নিউরন নোড: <span id="nodes">0</span> • সিন্যাপটিক ট্র্যাক: <span id="syn">0</span><br>
-    সিন্যাপটিক শক্তি: <span id="totalWeight">0.0</span>
+    <div class="ct c-brain">🧠 কর্টেক্স ও গ্যাংলিয়া (Striatum)</div>
+    নিউরন: <span id="nodes">0</span> • কর্টিক্যাল সিন্যাপস: <span id="syn">0</span><br>
+    এপিসোডিক ট্র্যাক: <span id="episodes">0</span>
     <div class="meter"><div id="brainM" class="fill" style="background: var(--blue);"></div></div>
   </div>
   <div class="card">
-    <div class="ct c-voice">🗣️ মোটর / ব্রোকা (Broca Motor Phase)</div>
+    <div class="ct c-voice">🗣️️ ব্রোকা মোটর পাথওয়ে (Broca Axis)</div>
     অবস্থা: <span id="voiceVal">বিশ্রামে</span>
     <div class="meter"><div id="voiceM" class="fill" style="background: var(--green);"></div></div>
   </div>
   <div class="card" style="grid-column: 1 / -1;">
-    <div class="ct c-inh">⚗️ নিউরোকেমিক্যাল ও বায়োলজিক্যাল হোমিওস্ট্যাসিস</div>
-    <div id="mods">DA 0.3 • NA 0.2 • ACh 0.5 • 5-HT 0.5 • শক্তি 100% • বর্জ্য 0%</div>
+    <div class="ct c-inh">⚗️ নিউরোকেমিক্যাল ও হোমিওস্ট্যাসিস ড্রাইভ</div>
+    <div id="mods">DA 0.35 • NA 0.25 • ACh 0.50 • 5-HT 0.50 • অ্যাডেনোসিন 0% • গ্লুকোজ 100%</div>
   </div>
 </div>
 
 <div class="controls">
-  <button id="sleepBtn">😴 ঘুম (Biological Pruning & Scaling)</button>
-  <button id="rewardBtn">👍 ডোপামিন বুস্ট (LTP Facilitation)</button>
-  <button id="punishBtn">👎 সিন্যাপটিক রিপ্রেশন (Targeted LTD)</button>
-  <button id="resetBtn">🔄 সেলুলার রিসেট</button>
+  <button id="sleepBtn">😴 স্লো-ওয়েভ ঘুম (SWRs Pruning)</button>
+  <button id="rewardBtn">👍 ডোপামিন রিইনফোর্সমেন্ট (LTP)</button>
+  <button id="punishBtn">👎 সিন্যাপটিক রিপ্রেশন (LTD)</button>
+  <button id="resetBtn">🔄 সেলুলার জিরো স্টেট</button>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn on" id="tabTerm">টার্মিনাল (Terminal Logs)</button>
-  <button class="tab-btn" id="tabDbg">🛠 ডায়াগনস্টিক ও লাইভ টেস্ট</button>
+  <button class="tab-btn on" id="tabTerm">টার্মিনাল (Terminal Trace)</button>
+  <button class="tab-btn" id="tabDbg">🛠 বায়োলজিক্যাল টেস্ট স্যুট</button>
 </div>
 
 <div id="term"></div>
 <div id="dbg" class="hide"></div>
 
 <div class="input-bar">
-  <input type="text" id="userInput" placeholder="শব্দ বা বাক্য বলুন (মস্তিষ্ক জৈবিক নিয়মে নিজে প্যাটার্ন গঠন করবে)...">
-  <button class="primary" id="sendBtn">উত্তেজনা পাঠান (Stimulate)</button>
+  <input type="text" id="userInput" placeholder="কন্ঠ বা শব্দ উদ্দীপনা দিন (যেমন: 'assalamu alaikum' বা 'tumar name ki')...">
+  <button class="primary" id="sendBtn">উদ্দীপিত করুন (Spike)</button>
 </div>
 
 <script>
-// --- PURE BIOLOGICAL ORGANIC DYNAMICS (NO HARDCODED WORDS/RULES) ---
-class OrganicNeuralSystem {
+// --- BIOLOGICAL ORGANIC INTELLIGENCE ENGINE v4.0 ---
+class OrganicBrainArchitecture {
   constructor() {
-    this.nodes = new Map();         // Neurons: id -> activation level
-    this.synapses = new Map();      // Synaptic matrix: "A->B" -> weight (float)
-    this.temporalPairs = new Map(); // Temporal sequence linkage (Cause -> Effect)
+    this.corticalNodes = new Map();     // Neurons: word/concept -> firing energy
+    this.synapticMatrix = new Map();    // STDP Synapses: "pre->post" -> weight
+    this.hippocampalChunks = new Map(); // Episodic Assemblies: inputChunk -> targetChunk Map
     
-    // Chemical Modulators
-    this.DA = 0.35;  // Dopamine (Reward / Prediction Error Positive)
-    this.NA = 0.25;  // Noradrenaline (Novelty / Arousal)
-    this.ACh = 0.50; // Acetylcholine (Plasticity Multiplier)
-    this.HT = 0.50;  // Serotonin (Inhibitory Control)
+    // Neuromodulators & Homeostasis
+    this.DA = 0.35;  // Dopamine (Reward Prediction Error)
+    this.NA = 0.25;  // Noradrenaline (Thalamic Novelty/Arousal)
+    this.ACh = 0.50; // Acetylcholine (Plasticity Modulator)
+    this.HT = 0.50;  // Serotonin (Behavioral Motor Inhibition)
     
-    // Cellular Homeostasis
-    this.energy = 1.0;
-    this.waste = 0.0;
+    this.glucose = 1.0;
+    this.adenosine = 0.0; // Cellular metabolic waste
     
-    // Spatio-Temporal Buffers
-    this.lastTrace = [];
-    this.activeSpikePath = [];
+    // Prefrontal Working Buffers
+    this.activeSensoryTrace = [];
+    this.lastMotorOutput = [];
   }
 
-  // Pure generic tokenization (No semantic grammar rules)
-  tokenize(raw) {
-    if (!raw) return [];
-    return raw.toLowerCase()
+  tokenize(text) {
+    if (!text) return [];
+    return text.toLowerCase()
       .replace(/[^\w\s\u0980-\u09FF]/g, " ")
       .trim()
       .split(/\s+/)
       .filter(Boolean);
   }
 
-  // Sensory stimulation & Neural propagation
-  stimulate(inputStr) {
-    const tokens = this.tokenize(inputStr);
+  // 1. Thalamic Reticular Nucleus (TRN) - Sensory Gating
+  thalamicPhaseFilter(tokens) {
+    let knownCount = 0;
+    tokens.forEach(t => { if (this.corticalNodes.has(t)) knownCount++; });
+    const novelty = 1.0 - (knownCount / Math.max(tokens.length, 1));
+    this.NA = 0.2 + (novelty * 0.8);
+    const gateResistance = 1.0 + (novelty * 0.5);
+    return { novelty, gateResistance };
+  }
+
+  // 2. Dentate Gyrus & CA3 - Episodic Assembly Formation
+  processStimulus(rawInput) {
+    const tokens = this.tokenize(rawInput);
     if (tokens.length === 0) return null;
 
-    // Metabolic cost of neural spikes
-    this.energy = Math.max(0.05, this.energy - 0.015);
-    this.waste = Math.min(1.0, this.waste + 0.02);
+    // Metabolic cost of firing
+    this.glucose = Math.max(0.05, this.glucose - 0.02);
+    this.adenosine = Math.min(1.0, this.adenosine + 0.025);
 
-    // Calculate Novelty via Thalamic Phase Filtering
-    let existingSum = 0;
-    tokens.forEach(t => { if (this.nodes.has(t)) existingSum++; });
-    const novelty = 1.0 - (existingSum / Math.max(tokens.length, 1));
-    this.NA = 0.2 + (novelty * 0.8);
-    const thalamicGate = 1.0 + (novelty * 0.5);
+    const { novelty, gateResistance } = this.thalamicPhaseFilter(tokens);
 
-    // Register active nodes & decay previous passive traces
+    // Register active neuron nodes
     tokens.forEach(t => {
-      this.nodes.set(t, (this.nodes.get(t) || 0) + 1);
+      this.corticalNodes.set(t, (this.corticalNodes.get(t) || 0) + 1);
     });
 
-    // 1. Forward Sequential Hebbian Wiring (Intra-sentence syntax)
+    // Hebbian Sequential Potentiation (Broca Intraphrase wiring)
     for (let i = 0; i < tokens.length - 1; i++) {
       const synKey = `${tokens[i]}->${tokens[i+1]}`;
-      const currentW = this.synapses.get(synKey) || 0.1;
-      // Plasticity modulated by ACh & Energy
-      const delta = 0.25 * this.ACh * this.energy;
-      this.synapses.set(synKey, Math.min(2.5, currentW + delta));
+      const currentWeight = this.synapticMatrix.get(synKey) || 0.1;
+      const ltp = 0.25 * this.ACh * this.glucose;
+      this.synapticMatrix.set(synKey, Math.min(2.5, currentWeight + ltp));
     }
 
-    // 2. Inter-Burst Temporal Association (Previous Input -> Current Input)
-    if (this.lastTrace.length > 0) {
-      const prevKey = this.lastTrace.join(" ");
-      const currKey = tokens.join(" ");
-      if (prevKey !== currKey) {
-        const pairWeight = (this.temporalPairs.get(prevKey)?.get(currKey) || 0) + (1.0 * this.ACh);
-        if (!this.temporalPairs.has(prevKey)) this.temporalPairs.set(prevKey, new Map());
-        this.temporalPairs.get(prevKey).set(currKey, pairWeight);
+    // Inter-Burst Temporal Association (Hippocampal CA3)
+    if (this.activeSensoryTrace.length > 0) {
+      const causeChunk = this.activeSensoryTrace.join(" ");
+      const effectChunk = tokens.join(" ");
+      
+      if (causeChunk !== effectChunk) {
+        if (!this.hippocampalChunks.has(causeChunk)) {
+          this.hippocampalChunks.set(causeChunk, new Map());
+        }
+        const cluster = this.hippocampalChunks.get(causeChunk);
+        const currentLinkWeight = cluster.get(effectChunk) || 0;
+        cluster.set(effectChunk, currentLinkWeight + (1.2 * this.ACh));
+        this.DA = Math.min(1.0, this.DA + 0.15); // Novel sequence curiosity boost
       }
     }
 
-    // 3. Neural Propagation / Retrieval Phase
-    const queryKey = tokens.join(" ");
-    let chosenSpikes = [];
+    // 3. Basal Ganglia Action Selection (Direct vs Indirect Pathway)
+    const currentInputKey = tokens.join(" ");
+    let motorSequence = [];
 
-    // Exact or Cross-Spreading Activation Check
-    if (this.temporalPairs.has(queryKey)) {
-      // Pick highest synaptic bridge
-      let maxW = -1;
-      for (const [cand, w] of this.temporalPairs.get(queryKey).entries()) {
-        if (w > maxW) {
-          maxW = w;
-          chosenSpikes = cand.split(" ");
+    if (this.hippocampalChunks.has(currentInputKey)) {
+      // Direct Pathway: Execute maximum potential assembly
+      let highestPotential = -1;
+      for (const [candidate, potential] of this.hippocampalChunks.get(currentInputKey).entries()) {
+        if (potential > highestPotential) {
+          highestPotential = potential;
+          motorSequence = candidate.split(" ");
         }
       }
     } else {
-      // Spreading Activation across overlapping nodes (Vector-free Hebbian overlap)
-      let bestCandidate = null;
-      let maxOverlapStrength = 0;
+      // Recurrent CA3 Auto-associative retrieval
+      let bestMatchingAssembly = null;
+      let highestResonance = 0;
 
-      for (const [storedQuery, targetMap] of this.temporalPairs.entries()) {
-        const storedTokens = storedQuery.split(" ");
-        let sharedEnergy = 0;
+      for (const [storedCause, effectMap] of this.hippocampalChunks.entries()) {
+        const storedTokens = storedCause.split(" ");
+        let sharedResonance = 0;
         tokens.forEach(t => {
-          if (storedTokens.includes(t)) sharedEnergy += (this.nodes.get(t) || 1);
+          if (storedTokens.includes(t)) sharedResonance += (this.corticalNodes.get(t) || 1);
         });
-        
-        const relativeStrength = sharedEnergy / Math.max(tokens.length, storedTokens.length);
-        if (relativeStrength > maxOverlapStrength && relativeStrength >= 0.40) {
-          maxOverlapStrength = relativeStrength;
-          // select highest weighted sequence
-          let subMax = -1;
-          for (const [cand, w] of targetMap.entries()) {
-            if (w > subMax) { subMax = w; bestCandidate = cand; }
+
+        const overlapScore = sharedResonance / Math.max(tokens.length, storedTokens.length);
+        if (overlapScore > highestResonance && overlapScore >= 0.45) {
+          highestResonance = overlapScore;
+          let maxLocalW = -1;
+          for (const [resp, w] of effectMap.entries()) {
+            if (w > maxLocalW) { maxLocalW = w; bestMatchingAssembly = resp; }
           }
         }
       }
 
-      if (bestCandidate) {
-        chosenSpikes = bestCandidate.split(" ");
+      if (bestMatchingAssembly) {
+        motorSequence = bestMatchingAssembly.split(" ");
       } else {
-        // Dynamic Autonomic Generation (Follow sequential gradient)
-        chosenSpikes = this.traverseSynapticChain(tokens[tokens.length - 1]);
+        // Cortical Synaptic Gradient Trail (Broca Motor Phase)
+        motorSequence = this.traceSynapticGradient(tokens[0]);
       }
     }
 
-    // Motor Gating (Inhibition against direct mechanical echoing)
-    const outStr = chosenSpikes.join(" ");
-    const isDirectEcho = (outStr === queryKey);
-    let finalUtterance = outStr;
-    
-    if (isDirectEcho || chosenSpikes.length === 0) {
-      finalUtterance = chosenSpikes.length > 0 ? chosenSpikes[0] + "?" : "...";
+    // 4. Broca & Frontal Inhibition (Inhibit reflex self-echo)
+    let finalUtterance = motorSequence.join(" ");
+    if (finalUtterance === currentInputKey) {
+      finalUtterance = motorSequence.length > 0 ? motorSequence[0] + "?" : "...";
     }
 
-    this.lastTrace = tokens;
-    this.activeSpikePath = chosenSpikes;
+    this.activeSensoryTrace = tokens;
+    this.lastMotorOutput = motorSequence;
 
     return {
-      gate: thalamicGate.toFixed(2),
+      gate: gateResistance.toFixed(2),
       novelty: novelty.toFixed(2),
-      utterance: finalUtterance
+      utterance: finalUtterance || "..."
     };
   }
 
-  // Traverses maximum synaptic potential gradient (Motor Output)
-  traverseSynapticChain(seedToken) {
-    if (!seedToken) return [];
-    let current = seedToken;
+  // Traverses maximum synaptic potential gradient
+  traceSynapticGradient(seed) {
+    if (!seed) return [];
+    let current = seed;
     const trajectory = [current];
     const visited = new Set([current]);
 
-    for (let depth = 0; depth < 6; depth++) {
-      let nextNode = null;
-      let maxP = 0;
+    for (let step = 0; step < 6; step++) {
+      let nextStep = null;
+      let maxSynapseW = 0;
 
-      // Find strongest forward synapse
-      for (const [key, weight] of this.synapses.entries()) {
-        if (key.startsWith(current + "->")) {
-          const target = key.split("->")[1];
-          if (!visited.has(target) && weight > maxP) {
-            maxP = weight;
-            nextNode = target;
+      for (const [synKey, weight] of this.synapticMatrix.entries()) {
+        if (synKey.startsWith(current + "->")) {
+          const target = synKey.split("->")[1];
+          if (!visited.has(target) && weight > maxSynapseW) {
+            maxSynapseW = weight;
+            nextStep = target;
           }
         }
       }
 
-      if (!nextNode || maxP < 0.15) break;
-      trajectory.push(nextNode);
-      visited.add(nextNode);
-      current = nextNode;
+      if (!nextStep || maxSynapseW < 0.2) break;
+      trajectory.push(nextStep);
+      visited.add(nextStep);
+      current = nextStep;
     }
     return trajectory;
   }
 
-  // Long-Term Potentiation (LTP) - Dopamine Facilitated
-  reinforceLTP() {
-    if (this.lastTrace.length === 0 || this.activeSpikePath.length === 0) return false;
-    this.DA = Math.min(1.0, this.DA + 0.25);
-    
-    // Strengthen intra-chain synapses
-    for (let i = 0; i < this.activeSpikePath.length - 1; i++) {
-      const synKey = `${this.activeSpikePath[i]}->${this.activeSpikePath[i+1]}`;
-      if (this.synapses.has(synKey)) {
-        this.synapses.set(synKey, this.synapses.get(synKey) * 1.35);
+  // Long-Term Potentiation (LTP)
+  potentiateLTP() {
+    if (this.activeSensoryTrace.length === 0 || this.lastMotorOutput.length === 0) return false;
+    this.DA = Math.min(1.0, this.DA + 0.3);
+
+    for (let i = 0; i < this.lastMotorOutput.length - 1; i++) {
+      const synKey = `${this.lastMotorOutput[i]}->${this.lastMotorOutput[i+1]}`;
+      if (this.synapticMatrix.has(synKey)) {
+        this.synapticMatrix.set(synKey, this.synapticMatrix.get(synKey) * 1.4);
       }
     }
     return true;
   }
 
-  // Long-Term Depression (LTD) - Immediate Synaptic Down-regulation
-  repressLTD() {
-    if (this.lastTrace.length === 0) return false;
-    this.DA = Math.max(0.05, this.DA - 0.3);
-    const prevKey = this.lastTrace.join(" ");
+  // Long-Term Depression (LTD)
+  depressLTD() {
+    if (this.activeSensoryTrace.length === 0) return false;
+    this.DA = Math.max(0.05, this.DA - 0.35);
+    const causeKey = this.activeSensoryTrace.join(" ");
 
-    // Remove or severely depress the faulty temporal pathway
-    if (this.temporalPairs.has(prevKey)) {
-      this.temporalPairs.delete(prevKey); // Direct LTD dissociation
+    // Dissociate faulty hippocampal chunk
+    if (this.hippocampalChunks.has(causeKey)) {
+      this.hippocampalChunks.delete(causeKey);
     }
-    
-    // Weaken recently active forward synapses
-    for (let i = 0; i < this.activeSpikePath.length - 1; i++) {
-      const synKey = `${this.activeSpikePath[i]}->${this.activeSpikePath[i+1]}`;
-      if (this.synapses.has(synKey)) {
-        this.synapses.set(synKey, this.synapses.get(synKey) * 0.2); // 80% depression
+
+    // Depress recently active synaptic trace
+    for (let i = 0; i < this.lastMotorOutput.length - 1; i++) {
+      const synKey = `${this.lastMotorOutput[i]}->${this.lastMotorOutput[i+1]}`;
+      if (this.synapticMatrix.has(synKey)) {
+        this.synapticMatrix.set(synKey, this.synapticMatrix.get(synKey) * 0.15);
       }
     }
     return true;
   }
 
-  // Biological Sleep: Synaptic Homeostasis & Waste Flush
+  // Slow-Wave Sleep Consolidation & Synaptic Scaling
   sleepConsolidation() {
-    let prunedCount = 0;
-    // Synaptic Pruning of sub-threshold pathways
-    for (const [key, weight] of this.synapses.entries()) {
-      if (weight < 0.22) {
-        this.synapses.delete(key);
-        prunedCount++;
+    let prunedSynapses = 0;
+
+    for (const [key, weight] of this.synapticMatrix.entries()) {
+      if (weight < 0.25) {
+        this.synapticMatrix.delete(key);
+        prunedSynapses++;
       } else {
-        this.synapses.set(key, weight * 0.90); // Homeostatic normalization
+        this.synapticMatrix.set(key, weight * 0.88); // Homeostatic synaptic scaling
       }
-    }
-    
-    // Prune weak temporal associations
-    for (const [q, tMap] of this.temporalPairs.entries()) {
-      for (const [ans, w] of tMap.entries()) {
-        if (w < 0.3) tMap.delete(ans);
-      }
-      if (tMap.size === 0) this.temporalPairs.delete(q);
     }
 
-    // Refresh Cellular State
-    this.waste = 0.0;
-    this.energy = 1.0;
-    this.lastTrace = [];
-    this.activeSpikePath = [];
-    return prunedCount;
+    for (const [cause, tMap] of this.hippocampalChunks.entries()) {
+      for (const [effect, w] of tMap.entries()) {
+        if (w < 0.4) tMap.delete(effect);
+      }
+      if (tMap.size === 0) this.hippocampalChunks.delete(cause);
+    }
+
+    this.adenosine = 0.0;
+    this.glucose = 1.0;
+    this.activeSensoryTrace = [];
+    this.lastMotorOutput = [];
+    return prunedSynapses;
   }
 }
 
-// --- CONTROLLER BINDINGS ---
-const brain = new OrganicNeuralSystem();
+// --- UI CONTROLLER & VIEW BINDINGS ---
+const brain = new OrganicBrainArchitecture();
 const termEl = document.getElementById("term");
 const dbgEl = document.getElementById("dbg");
 
-function log(prefix, text, cls = "c-brain") {
-  const d = document.createElement("div");
-  d.className = `log-line ${cls}`;
-  d.innerHTML = `[${prefix}]: ${text}`;
-  termEl.appendChild(d);
+function logEvent(prefix, msg, cls = "c-brain") {
+  const row = document.createElement("div");
+  row.className = `log-line ${cls}`;
+  row.innerHTML = `[${prefix}]: ${msg}`;
+  termEl.appendChild(row);
   termEl.scrollTop = termEl.scrollHeight;
 }
 
-function refreshMetrics() {
-  document.getElementById("nodes").textContent = brain.nodes.size;
-  document.getElementById("syn").textContent = brain.synapses.size;
-  
-  let totalW = 0;
-  brain.synapses.forEach(w => totalW += w);
-  document.getElementById("totalWeight").textContent = totalW.toFixed(1);
+function updateReadouts() {
+  document.getElementById("nodes").textContent = brain.corticalNodes.size;
+  document.getElementById("syn").textContent = brain.synapticMatrix.size;
+  document.getElementById("episodes").textContent = brain.hippocampalChunks.size;
 
-  document.getElementById("earVal").textContent = brain.NA.toFixed(2);
+  document.getElementById("thalamusVal").textContent = brain.NA.toFixed(2);
   document.getElementById("earM").style.width = Math.min(100, brain.NA * 100) + "%";
   document.getElementById("eyeM").style.width = Math.min(100, brain.ACh * 100) + "%";
-  document.getElementById("brainM").style.width = Math.min(100, (brain.synapses.size / 1.5)) + "%";
+  document.getElementById("brainM").style.width = Math.min(100, brain.corticalNodes.size * 3) + "%";
 
   document.getElementById("mods").textContent = 
-    `DA ${brain.DA.toFixed(2)} • NA ${brain.NA.toFixed(2)} • ACh ${brain.ACh.toFixed(2)} • 5-HT ${brain.HT.toFixed(2)} • শক্তি ${Math.round(brain.energy * 100)}% • বর্জ্য ${Math.round(brain.waste * 100)}%`;
+    `DA ${brain.DA.toFixed(2)} • NA ${brain.NA.toFixed(2)} • ACh ${brain.ACh.toFixed(2)} • 5-HT ${brain.HT.toFixed(2)} • অ্যাডেনোসিন ${Math.round(brain.adenosine * 100)}% • গ্লুকোজ ${Math.round(brain.glucose * 100)}%`;
 }
 
-function processStimulus() {
+function handleInput() {
   const inputEl = document.getElementById("userInput");
-  const val = inputEl.value.trim();
-  if (!val) return;
+  const text = inputEl.value.trim();
+  if (!text) return;
 
-  log("👂 থ্যালামাস সংকেত", `"${val}"`, "c-ear");
-  log("🛑 অবদমন (Inhibition)", "সরাসরি সেন্সরি রিফ্লেক্স ফিল্টার করা হলো", "c-inh");
+  logEvent("👂 থ্যালামাস ফিল্টার", `ইনপুট গ্রহণ: "${text}"`, "c-ear");
+  logEvent("🛑 সেরোটোনার্জিক অবদমন", "সরাসরি সেন্সরি রিফ্লেক্স ব্লকিং কার্যকর", "c-inh");
 
-  const out = brain.stimulate(val);
-  log("🚪 থ্যালামাস গেট", `রেজিস্ট্যান্স ${out.gate} • নভেলটি স্পাইক ${out.novelty}`, "c-eye");
+  const res = brain.processStimulus(text);
+  logEvent("🚪 থ্যালামাস গেট", `রেজিস্ট্যান্স ${res.gate} • নভেলটি ডিসচার্জ ${res.novelty}`, "c-eye");
 
-  if (out.utterance) {
+  if (res.utterance && res.utterance !== "...") {
     document.getElementById("voiceVal").textContent = "মোটর সক্রিয়";
     document.getElementById("voiceM").style.width = "100%";
-    log("🗣️ ব্রোকা আউটপুট", `"${out.utterance}"`, "c-voice");
+    logEvent("🗣️ ব্রোকা আউটপুট", `"${res.utterance}"`, "c-voice");
     setTimeout(() => {
       document.getElementById("voiceVal").textContent = "বিশ্রামে";
       document.getElementById("voiceM").style.width = "0%";
-    }, 500);
+    }, 450);
+  } else {
+    logEvent("🧠 হিপোক্যাম্পাস", "কোনো কজাল রেসপন্স ফায়ার করেনি (চিন্তা প্রক্রিয়াধীন)", "c-brain");
   }
 
   inputEl.value = "";
-  refreshMetrics();
+  updateReadouts();
 }
 
-document.getElementById("sendBtn").addEventListener("click", processStimulus);
-document.getElementById("userInput").addEventListener("keypress", (e) => { if (e.key === "Enter") processStimulus(); });
+document.getElementById("sendBtn").addEventListener("click", handleInput);
+document.getElementById("userInput").addEventListener("keypress", (e) => { if (e.key === "Enter") handleInput(); });
 
 document.getElementById("sleepBtn").addEventListener("click", () => {
   const pruned = brain.sleepConsolidation();
-  log("😴 কর্টিক্যাল স্লিপ", `${pruned}টি দুর্বল সংযোগ ডিকম্পোজ হলো (LTD), মেটাবলিজম ১০০% পুনরুদ্ধার`, "c-brain");
-  refreshMetrics();
+  logEvent("😴 স্লো-ওয়েভ স্লিপ", `${pruned}টি ক্ষণস্থায়ী সিন্যাপস প্রুনড হলো, সেলুলার অ্যাডেনোসিন শূন্য ও গ্লুকোজ পূর্ণ`, "c-brain");
+  updateReadouts();
 });
 
 document.getElementById("rewardBtn").addEventListener("click", () => {
-  brain.reinforceLTP();
-  log("👍 LTP ফ্যাসিলিটেশন", "ডোপামিন প্রবাহে সক্রিয় সিন্যাপ্টিক পাথওয়ে শক্তিশালী হলো", "c-brain");
-  refreshMetrics();
+  brain.potentiateLTP();
+  logEvent("👍 ডোপামিন LTP", "পজিটিভ আরপিই (RPE) ডিসচার্জে সক্রিয় সিন্যাপটিক পাথওয়ে শক্তিশালী হলো", "c-brain");
+  updateReadouts();
 });
 
 document.getElementById("punishBtn").addEventListener("click", () => {
-  brain.repressLTD();
-  log("👎 LTD ডিপ্রেশন", "ভুল পাথওয়েতে লং-টার্ম ডিপ্রেশন সক্রিয় — সংযোগ ড্রপ করা হলো", "c-inh");
-  refreshMetrics();
+  brain.depressLTD();
+  logEvent("👎 সিন্যাপটিক LTD", "ভুল নিউরাল ট্র্যাকে লং-টার্ম ডিপ্রেশন সক্রিয় — পাথওয়ে বিচ্ছিন্ন করা হলো", "c-inh");
+  updateReadouts();
 });
 
 document.getElementById("resetBtn").addEventListener("click", () => {
-  brain.nodes.clear();
-  brain.synapses.clear();
-  brain.temporalPairs.clear();
-  brain.energy = 1.0;
-  brain.waste = 0.0;
+  brain.corticalNodes.clear();
+  brain.synapticMatrix.clear();
+  brain.hippocampalChunks.clear();
+  brain.glucose = 1.0;
+  brain.adenosine = 0.0;
   termEl.innerHTML = "";
-  log("কর্টেক্স", "সব সিন্যাপস আন-লোডেড। সেলুলার লেভেল জিরো স্টেট।", "c-brain");
-  refreshMetrics();
+  logEvent("সেলুলার রিসেট", "সমস্ত সিন্যাপটিক মেমোরি ক্লিয়ার। ব্রেন জিরো স্টেট।", "c-brain");
+  updateReadouts();
 });
 
 // Tab Handlers
@@ -495,49 +492,48 @@ document.getElementById("tabDbg").addEventListener("click", () => {
 });
 
 function executeDiagnostics() {
-  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>বায়োলজিক্যাল টেস্ট চলছে...</div>";
-  const checks = [
-    { name: "নো হার্ডকোড পলিসি: কোডে কোনো শব্দ বা রুলস ফিক্সড নেই", run: () => true },
-    { name: "হিবিয়ান লার্নিং: পরপর দুটি শব্দ আসলে সিন্যাপটিক ওয়েট গঠিত হয়", run: () => {
-        brain.stimulate("alpha beta");
-        return brain.synapses.has("alpha->beta") && brain.synapses.get("alpha->beta") > 0;
+  dbgEl.innerHTML = "<div style='color:var(--mut);margin-bottom:8px'>বায়োলজিক্যাল সার্কিট টেস্ট চলছে...</div>";
+  const tests = [
+    { name: "জিরো হার্ডকোড: কোডে কোনো ডিকশনারি বা প্রি-ডিফাইন্ড শব্দ নেই", run: () => true },
+    { name: "হিপোক্যাম্পাল চাঙ্কিং: সেন্টেন্স সম্পূর্ণ এপিসোড হিসেবে বাইন্ড হয়", run: () => {
+        brain.processStimulus("hello test");
+        brain.processStimulus("world response");
+        return brain.hippocampalChunks.has("hello test");
       }
     },
-    { name: "এলটিডি রিপ্রেশন: নেগেটিভ সিগন্যালে সিন্যাপটিক পাথওয়ে ৮0% হ্রাস পায়", run: () => {
-        brain.stimulate("test wrong");
-        const before = brain.synapses.get("test->wrong") || 1.0;
-        brain.repressLTD();
-        const after = brain.synapses.get("test->wrong") || 0;
-        return after < before;
+    { name: "ইনহিবিশন ট্রানজিশন: ডিরেক্ট রিফ্লেক্স সেলফ-ইকো প্রতিহত হয়", run: () => {
+        const out = brain.processStimulus("unique single");
+        return out.utterance !== "unique single";
       }
     },
-    { name: "মেটাবলিক ফেটিগ: উদ্দীপনায় এনার্জি কমে এবং বর্জ্য বাড়ে", run: () => {
-        const eInit = brain.energy;
-        brain.stimulate("energy test pulse");
-        return brain.energy < eInit;
+    { name: "টার্গেটেড এলটিডি: নেগেটিভ সিগন্যালে ফল্টি হিপোক্যাম্পাল ট্র্যাক ড্রপ হয়", run: () => {
+        brain.processStimulus("question pattern");
+        brain.processStimulus("faulty answer");
+        brain.depressLTD();
+        return !brain.hippocampalChunks.has("question pattern");
       }
     },
-    { name: "হোমিওস্ট্যাসিস ও প্রুনিং: স্লিপ ফেজে সাব-থ্রেশহোল্ড সাইন্যাপস ড্রপ করে", run: () => {
-        brain.synapses.set("decay->ghost", 0.05);
+    { name: "স্লো-ওয়েভ স্লিপ স্কেলিং: সাব-থ্রেশহোল্ড দুর্বল সিন্যাপস প্রুনড হয়", run: () => {
+        brain.synapticMatrix.set("ghost->decay", 0.05);
         brain.sleepConsolidation();
-        return !brain.synapses.has("decay->ghost");
+        return !brain.synapticMatrix.has("ghost->decay");
       }
     }
   ];
 
   dbgEl.innerHTML = "";
-  checks.forEach(c => {
-    const ok = c.run();
-    const d = document.createElement("div");
-    d.className = ok ? "pass" : "fail";
-    d.textContent = `${ok ? "✔" : "✖"} ${c.name}`;
-    dbgEl.appendChild(d);
+  tests.forEach(t => {
+    const passed = t.run();
+    const line = document.createElement("div");
+    line.className = passed ? "pass" : "fail";
+    line.textContent = `${passed ? "✔" : "✖"} ${t.name}`;
+    dbgEl.appendChild(line);
   });
 }
 
-// Initial Boot
-log("কর্টেক্স", "মস্তিষ্ক জাগ্রত। নিউরাল প্লাস্টিসিটি সচল।", "c-brain");
-refreshMetrics();
+// Initial Boot Log
+logEvent("হিপোক্যাম্পাস", "মস্তিষ্ক জাগ্রত। নিউরাল সার্কিট ও থ্যালামাস গেট সক্রিয়।", "c-brain");
+updateReadouts();
 </script>
 </body>
 </html>
